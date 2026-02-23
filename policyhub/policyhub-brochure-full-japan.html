@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PolicyHub — 企業ポリシー統合管理プラットフォーム</title>
+    <meta name="description" content="ポリシーのライフサイクル全体を管理する統合プラットフォーム。AI活用による作成支援から、確実な理解度確認、継続的なコンプライアンス監視まで。">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Japanese-inspired Color Palette */
+            --indigo: #1e3a5f;
+            --indigo-dark: #152844;
+            --indigo-light: #2a4d78;
+            --vermillion: #e63946;
+            --vermillion-light: #ff4d5a;
+            --gold: #d4af37;
+            --gold-light: #f4d03f;
+            --white: #ffffff;
+            --cream: #fafaf8;
+            --gray-50: #f8f9fb;
+            --gray-100: #f1f3f6;
+            --gray-200: #e4e7eb;
+            --gray-300: #d1d5db;
+            --gray-600: #5a6270;
+            --gray-800: #2d3748;
+            --black: #1a1a1a;
+
+            /* Typography */
+            --font-japanese: 'Noto Sans JP', sans-serif;
+            --font-english: 'Inter', sans-serif;
+
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 0.75rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+
+            /* Borders */
+            --border-thin: 1px;
+            --border-medium: 2px;
+            --border-radius: 6px;
+            --border-radius-lg: 8px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-english);
+            background: var(--cream);
+            color: var(--gray-800);
+            line-height: 1.75;
+            /* Japanese text line-breaking strategy:
+               - line-break: strict = prevents breaks before small kana (っょャ) and prolonged marks (ー)
+               - overflow-wrap: break-word = allows wrapping between words when needed
+               - Critical katakana words are wrapped in <span class="nowrap"> for guaranteed protection
+               - Modern browsers with Chrome 119+ will use word-break: auto-phrase on headings for intelligent phrase breaking */
+            line-break: strict;
+            overflow-wrap: break-word;
+        }
+
+        /* Japanese-style decorative pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                repeating-linear-gradient(90deg, transparent, transparent 99px, rgba(30, 58, 95, 0.02) 99px, rgba(30, 58, 95, 0.02) 100px),
+                repeating-linear-gradient(0deg, transparent, transparent 99px, rgba(30, 58, 95, 0.02) 99px, rgba(30, 58, 95, 0.02) 100px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: var(--font-english);
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--indigo-dark);
+        }
+
+        h1 {
+            font-size: clamp(1.875rem, 4.5vw, 3rem);
+            letter-spacing: -0.02em;
+            max-width: 100%;
+            /* Progressive enhancement for modern browsers */
+            word-break: auto-phrase;
+            text-wrap: balance;
+            /* Baseline for all browsers */
+            line-break: strict;
+            overflow-wrap: break-word;
+        }
+
+        .nowrap {
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        h2 {
+            font-size: clamp(1.75rem, 4vw, 2.75rem);
+            letter-spacing: -0.01em;
+            /* Progressive enhancement for modern browsers */
+            word-break: auto-phrase;
+            text-wrap: balance;
+            /* Baseline for all browsers */
+            line-break: strict;
+            overflow-wrap: break-word;
+        }
+
+        h3 {
+            font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+            /* Progressive enhancement for modern browsers */
+            word-break: auto-phrase;
+            /* Baseline for all browsers */
+            line-break: strict;
+            overflow-wrap: break-word;
+        }
+
+        .label {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--vermillion);
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(230, 57, 70, 0.08);
+            border: var(--border-thin) solid var(--vermillion);
+            border-radius: 3px;
+            white-space: nowrap;
+        }
+
+        .number-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            background: var(--indigo);
+            color: var(--white);
+            font-weight: 700;
+            font-size: 0.875rem;
+            border-radius: 4px;
+            border: var(--border-thin) solid var(--indigo-light);
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--space-md);
+            }
+        }
+
+        section {
+            padding: var(--space-3xl) 0;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: var(--border-medium) solid var(--indigo);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md) var(--space-xl);
+            max-width: 1320px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            height: 36px;
+            filter: brightness(0);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-xl);
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--indigo-dark);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: var(--space-xs) var(--space-sm);
+            border-bottom: var(--border-medium) solid transparent;
+            transition: all 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--vermillion);
+            border-bottom-color: var(--vermillion);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.75rem;
+            background: var(--indigo);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+            border-radius: var(--border-radius);
+            border: var(--border-medium) solid var(--indigo);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--vermillion);
+            border-color: var(--vermillion);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(230, 57, 70, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--indigo);
+            border: var(--border-medium) solid var(--indigo);
+        }
+
+        .btn-outline:hover {
+            background: var(--indigo);
+            color: var(--white);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--white) 0%, var(--gray-50) 100%);
+            border-bottom: var(--border-thin) solid var(--gray-200);
+            padding-top: var(--space-3xl);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin-bottom: var(--space-2xl);
+        }
+
+        .hero-text {
+            border: var(--border-thin) solid var(--gray-200);
+            background: var(--white);
+            padding: var(--space-2xl);
+            border-radius: var(--border-radius-lg);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+        }
+
+        .hero-text .label {
+            margin-bottom: var(--space-md);
+        }
+
+        .hero h1 {
+            margin-bottom: var(--space-md);
+            position: relative;
+        }
+
+        .hero h1::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 4rem;
+            height: 3px;
+            background: var(--vermillion);
+        }
+
+        .hero-description {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--gray-600);
+            margin: var(--space-lg) 0;
+            padding-left: var(--space-md);
+            border-left: 3px solid var(--gold);
+            line-break: strict;
+            overflow-wrap: break-word;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: var(--space-md);
+            margin-top: var(--space-xl);
+            flex-wrap: wrap;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+        }
+
+        .stat-box {
+            background: var(--white);
+            border: var(--border-thin) solid var(--gray-200);
+            border-left: 4px solid var(--vermillion);
+            padding: var(--space-lg);
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--indigo);
+            line-height: 1;
+            margin-bottom: var(--space-xs);
+            font-family: var(--font-english);
+        }
+
+        .stat-label {
+            font-size: 0.8125rem;
+            color: var(--gray-600);
+            font-weight: 600;
+            line-break: strict;
+            overflow-wrap: break-word;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Image Showcase */
+        .showcase {
+            background: var(--gray-100);
+            border-top: var(--border-thin) solid var(--gray-200);
+            border-bottom: var(--border-thin) solid var(--gray-200);
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-lg);
+        }
+
+        .showcase-item {
+            background: var(--white);
+            border: var(--border-medium) solid var(--indigo);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(30, 58, 95, 0.1);
+            transition: all 0.3s;
+        }
+
+        .showcase-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(30, 58, 95, 0.2);
+        }
+
+        .showcase-item img {
+            width: 100%;
+            display: block;
+        }
+
+        .showcase-main {
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 768px) {
+            .showcase-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Section Header */
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-2xl);
+            padding-bottom: var(--space-lg);
+            border-bottom: var(--border-medium) solid var(--gray-200);
+            position: relative;
+        }
+
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--vermillion);
+        }
+
+        .section-header .label {
+            margin-bottom: var(--space-md);
+        }
+
+        .section-lead {
+            font-size: 1.0625rem;
+            color: var(--gray-600);
+            max-width: 800px;
+            margin: var(--space-md) auto 0;
+            line-height: 1.8;
+            line-break: strict;
+            overflow-wrap: break-word;
+        }
+
+        /* Problem Section */
+        .problem {
+            background: var(--white);
+        }
+
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-lg);
+        }
+
+        .pain-card {
+            background: var(--white);
+            border: var(--border-thin) solid var(--gray-300);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-xl);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .pain-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--vermillion);
+        }
+
+        .pain-card:hover {
+            border-color: var(--indigo);
+            box-shadow: 0 8px 24px rgba(30, 58, 95, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .pain-stat {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            color: var(--vermillion);
+            line-height: 1.1;
+            margin-bottom: var(--space-md);
+            font-family: var(--font-english);
+        }
+
+        .pain-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+            color: var(--indigo-dark);
+            word-break: auto-phrase;
+            line-break: strict;
+            overflow-wrap: break-word;
+        }
+
+        .pain-card p {
+            font-size: 0.9375rem;
+            color: var(--gray-600);
+            line-height: 1.7;
+            line-break: strict;
+            overflow-wrap: break-word;
+        }
+
+        @media (max-width: 768px) {
+            .pain-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Solution Section */
+        .solution {
+            background: var(--indigo-dark);
+            color: var(--white);
+            border-top: 4px solid var(--vermillion);
+        }
+
+        .solution .section-header {
+            border-bottom-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .solution .section-header::after {
+            background: var(--gold);
+        }
+
+        .solution .label {
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .solution h2 {
+            color: var(--white);
+        }
+
+        .solution .section-lead {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+        }
+
+        .module {
+            background: rgba(255, 255, 255, 0.05);
+            border: var(--border-thin) solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-lg);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold) 0%, var(--vermillion) 100%);
+        }
+
+        .module:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--gold);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .module-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+
+        .module h3 {
+            font-size: 1rem;
+            color: var(--white);
+            font-weight: 700;
+            word-break: auto-phrase;
+            line-break: strict;
+            overflow-wrap: break-word;
+        }
+
+        .module p {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.7;
+            margin-bottom: var(--space-md);
+            line-break: strict;
+            overflow-wrap: break-word;
+        }
+
+        .module-metric {
+            padding-top: var(--space-md);
+            border-top: var(--border-thin) solid rgba(255, 255, 255, 0.15);
+            font-size: 0.8125rem;
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        @media (max-width: 1024px) {
+            .modules-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Results Section */
+        .results {
+            background: var(--gray-50);
+        }
+
+        .comparison-wrapper {
+            background: var(--white);
+            border: var(--border-medium) solid var(--gray-200);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .comparison-table thead {
+            background: var(--indigo);
+            color: var(--white);
+        }
+
+        .comparison-table th {
+            padding: var(--space-lg);
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.8125rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border-bottom: var(--border-medium) solid var(--vermillion);
+        }
+
+        .comparison-table td {
+            padding: var(--space-lg);
+            border-bottom: var(--border-thin) solid var(--gray-200);
+        }
+
+        .comparison-table tbody tr:hover {
+            background: var(--gray-50);
+        }
+
+        .comparison-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .before {
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        .after {
+            color: var(--indigo);
+            font-weight: 700;
+        }
+
+        .improvement {
+            display: inline-block;
+            padding: 0.375rem 0.875rem;
+            background: rgba(230, 57, 70, 0.1);
+            color: var(--vermillion);
+            border: var(--border-thin) solid var(--vermillion);
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.8125rem;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-wrapper {
+                overflow-x: auto;
+            }
+
+            .comparison-table {
+                min-width: 700px;
+            }
+        }
+
+        /* Competitive Comparison */
+        .competitive-header {
+            text-align: center;
+            margin-bottom: var(--space-2xl);
+        }
+
+        .competitive-header h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: var(--space-md);
+            color: var(--indigo-dark);
+            word-break: auto-phrase;
+            line-break: strict;
+            overflow-wrap: break-word;
+        }
+
+        .competitive-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-lg);
+            margin-bottom: var(--space-3xl);
+        }
+
+        .competitor-card {
+            background: var(--white);
+            border: var(--border-medium) solid var(--gray-200);
+            padding: var(--space-xl);
+            border-radius: var(--border-radius-lg);
+            transition: all 0.3s;
+        }
+
+        .competitor-card:hover {
+            border-color: var(--gray-300);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(30, 58, 95, 0.12);
+        }
+
+        .competitor-card h4 {
+            font-family: var(--font-english);
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: var(--space-lg);
+            color: var(--indigo-dark);
+            border-bottom: var(--border-medium) solid var(--vermillion);
+            padding-bottom: var(--space-sm);
+        }
+
+        .competitor-card p {
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin-bottom: var(--space-xs);
+            line-break: strict;
+            overflow-wrap: break-word;
+        }
+
+        .competitor-card .strength {
+            color: var(--gray-800);
+            font-weight: 500;
+        }
+
+        .competitor-card .strength::before {
+            content: '✓ ';
+            color: var(--gold);
+            font-weight: 700;
+            margin-right: 0.25rem;
+        }
+
+        .competitor-card .weakness {
+            color: var(--gray-600);
+            font-weight: 400;
+            opacity: 0.7;
+        }
+
+        .competitor-card .weakness::before {
+            content: '✗ ';
+            color: var(--gray-600);
+            margin-right: 0.25rem;
+        }
+
+        .competitor-card.highlight {
+            background: var(--indigo-dark);
+            border-color: var(--gold);
+            border-width: 3px;
+            transform: scale(1.02);
+        }
+
+        .competitor-card.highlight:hover {
+            transform: scale(1.02) translateY(-4px);
+            box-shadow: 0 16px 48px rgba(230, 57, 70, 0.25);
+        }
+
+        .competitor-card.highlight h4 {
+            color: var(--white);
+            border-bottom-color: var(--gold);
+        }
+
+        .competitor-card.highlight .strength {
+            color: var(--white);
+        }
+
+        .competitor-card.highlight .strength::before {
+            color: var(--gold);
+        }
+
+        .competitor-card.highlight .tagline {
+            margin-top: var(--space-lg);
+            padding-top: var(--space-lg);
+            border-top: var(--border-thin) solid rgba(255, 255, 255, 0.2);
+            font-weight: 700;
+            font-size: 0.75rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        @media (max-width: 1024px) {
+            .competitive-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .competitive-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .competitor-card.highlight {
+                transform: scale(1);
+            }
+
+            .competitor-card.highlight:hover {
+                transform: translateY(-4px);
+            }
+        }
+
+        /* Trust Section */
+        .trust {
+            background: var(--white);
+            border-top: var(--border-thin) solid var(--gray-200);
+            border-bottom: var(--border-thin) solid var(--gray-200);
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: var(--space-md);
+        }
+
+        .trust-badge {
+            background: var(--gray-50);
+            border: var(--border-medium) solid var(--indigo);
+            border-radius: var(--border-radius);
+            padding: var(--space-lg) var(--space-md);
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.75rem;
+            color: var(--indigo);
+            transition: all 0.3s;
+        }
+
+        .trust-badge:hover {
+            background: var(--indigo);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .trust-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, var(--vermillion) 0%, var(--vermillion-light) 100%);
+            color: var(--white);
+            text-align: center;
+            border-top: 4px solid var(--gold);
+            border-bottom: 4px solid var(--gold);
+        }
+
+        .cta h2 {
+            color: var(--white);
+            margin-bottom: var(--space-md);
+        }
+
+        .cta p {
+            font-size: 1.125rem;
+            max-width: 700px;
+            margin: 0 auto var(--space-xl);
+            line-height: 1.8;
+        }
+
+        .cta .btn {
+            background: var(--white);
+            color: var(--vermillion);
+            border-color: var(--white);
+            font-size: 1rem;
+            padding: 1rem 2.5rem;
+        }
+
+        .cta .btn:hover {
+            background: var(--indigo);
+            color: var(--white);
+            border-color: var(--indigo);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--indigo-dark);
+            color: rgba(255, 255, 255, 0.75);
+            padding: var(--space-2xl) 0 var(--space-lg);
+            border-top: 4px solid var(--gold);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--space-2xl);
+            margin-bottom: var(--space-xl);
+        }
+
+        .footer-brand {
+            padding: var(--space-lg);
+            background: rgba(255, 255, 255, 0.05);
+            border: var(--border-thin) solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--border-radius-lg);
+        }
+
+        .footer-logo {
+            height: 40px;
+            margin-bottom: var(--space-md);
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-tagline {
+            font-size: 1.25rem;
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+
+        .footer-description {
+            font-size: 0.9375rem;
+            line-height: 1.7;
+            margin-bottom: var(--space-md);
+        }
+
+        .footer-contact {
+            font-size: 0.9375rem;
+        }
+
+        .footer-contact a {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 700;
+            border-bottom: var(--border-thin) solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        .footer-contact a:hover {
+            border-bottom-color: var(--gold);
+        }
+
+        .footer-bottom {
+            padding-top: var(--space-lg);
+            border-top: var(--border-thin) solid rgba(255, 255, 255, 0.15);
+            text-align: center;
+            font-size: 0.8125rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Progress Indicator */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--vermillion) 0%, var(--gold) 100%);
+            z-index: 9999;
+            box-shadow: 0 2px 8px rgba(230, 57, 70, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar"></div>
+
+    <header>
+        <nav>
+            <img src="Logo_Full_white.png" alt="NeuralNexus PolicyHub" class="logo">
+            <ul class="nav-links">
+                <li><a href="#problem">課題</a></li>
+                <li><a href="#solution">ソリューション</a></li>
+                <li><a href="#results">導入効果</a></li>
+            </ul>
+            <a href="mailto:info@neuralnexus.lk?subject=デモのご依頼" class="btn">デモのご依頼</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <span class="label">企業ポリシー統合管理</span>
+                    <h1><span class="nowrap">ポリシー管理</span>を効率化</h1>
+                    <p class="hero-description">
+                        <span class="nowrap">ポリシー</span>の<span class="nowrap">ライフサイクル</span>全体を管理する統合<span class="nowrap">プラットフォーム</span>。AI活用の作成支援から理解度確認、継続的な<span class="nowrap">コンプライアンス</span>監視まで一元管理を実現します。
+                    </p>
+
+                    <div class="hero-cta">
+                        <a href="mailto:info@neuralnexus.lk?subject=デモのご依頼" class="btn">デモのご依頼</a>
+                        <a href="https://wa.me/94777880390" class="btn btn-outline" target="_blank">お問い合わせ</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value">50-70%</div>
+                    <div class="stat-label">ポリシー作成時間を短縮</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">95%以上</div>
+                    <div class="stat-label">従業員の承認率を実現</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">60-85%</div>
+                    <div class="stat-label">監査準備時間を短縮</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="showcase">
+        <div class="container">
+            <div class="showcase-grid">
+                <div class="showcase-item showcase-main">
+                    <img src="dashboard.png" alt="PolicyHubダッシュボード">
+                </div>
+                <div class="showcase-item">
+                    <img src="ai-copilot.png" alt="AIコパイロットアシスタント">
+                </div>
+                <div class="showcase-item">
+                    <img src="policy-viewer.png" alt="ポリシービューア画面">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="problem" class="problem">
+        <div class="container">
+            <div class="section-header">
+                <span class="label">現状の課題</span>
+                <h2><span class="nowrap">ポリシー管理</span>のよくある課題</h2>
+                <p class="section-lead">
+                    多くの企業が、<span class="nowrap">バージョン管理</span>の混乱や<span class="nowrap">メール</span>ベースの<span class="nowrap">承認フロー</span>、形式的な確認作業といった課題を抱えています。<span class="nowrap">コンプライアンス</span>状況の可視化も十分とは言えません。
+                </p>
+            </div>
+
+            <div class="pain-grid">
+                <div class="pain-card">
+                    <div class="pain-stat">78%</div>
+                    <h3 class="pain-title">承認管理の課題</h3>
+                    <p>企業の78%がポリシー承認の追跡に苦労しています。デジタル証明システムを持つのはわずか20%で、現在の承認率は30〜50%にとどまります。</p>
+                </div>
+
+                <div class="pain-card">
+                    <div class="pain-stat">最大1億円</div>
+                    <h3 class="pain-title"><span class="nowrap">コンプライアンス</span>違反の<span class="nowrap">リスク</span></h3>
+                    <p>個人情報保護法違反では最大1億円の罰金が科されます。金融庁の<span class="nowrap">ペナルティ</span>は3,000万円から3億円の範囲に及びます。<span class="nowrap">ポリシー</span>違反は事業に大きな影響を及ぼす可能性があります。</p>
+                </div>
+
+                <div class="pain-card">
+                    <div class="pain-stat">8〜12週間</div>
+                    <h3 class="pain-title">作成<span class="nowrap">プロセス</span>の<span class="nowrap">ボトルネック</span></h3>
+                    <p>手動での<span class="nowrap">ポリシー</span>作成には数ヶ月を要します。<span class="nowrap">バージョン管理</span>の混乱、<span class="nowrap">メール</span>での<span class="nowrap">承認フロー</span>、関係者間の調整により、<span class="nowrap">プロセス</span>全体が遅延します。</p>
+                </div>
+
+                <div class="pain-card">
+                    <div class="pain-stat">平均5,000万円</div>
+                    <h3 class="pain-title">訴訟<span class="nowrap">リスク</span></h3>
+                    <p>労働基準法違反や雇用関連の訴訟では、平均5,000万円の和解金が発生します。古い<span class="nowrap">ポリシー</span>や不明確な<span class="nowrap">ポリシー</span>は、企業に法的<span class="nowrap">リスク</span>をもたらします。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="solution" class="solution">
+        <div class="container">
+            <div class="section-header">
+                <span class="label">ソリューション</span>
+                <h2>7つの<span class="nowrap">モジュール</span>で<span class="nowrap">ライフサイクル</span>全体を管理</h2>
+                <p class="section-lead">
+                    PolicyHubは企業<span class="nowrap">ポリシー</span>の<span class="nowrap">ライフサイクル</span>全体（<span class="nowrap">ステージ</span>2〜7）に対応。共同作成から継続的な<span class="nowrap">コンプライアンス</span>監視まで統合管理が可能です。
+                </p>
+            </div>
+
+            <div class="modules-grid">
+                <div class="module">
+                    <div class="module-header">
+                        <span class="number-badge">01</span>
+                        <h3><span class="nowrap">ポリシー</span>作成・共同編集</h3>
+                    </div>
+                    <p><span class="nowrap">リアルタイム</span>共同編集、AI作成支援、<span class="nowrap">スマートテンプレート</span>、<span class="nowrap">バージョン管理</span>などにより効率的な<span class="nowrap">ポリシー</span>作成が可能です。</p>
+                    <div class="module-metric">→ 作成時間を50〜70%短縮</div>
+                </div>
+
+                <div class="module">
+                    <div class="module-header">
+                        <span class="number-badge">02</span>
+                        <h3>承認<span class="nowrap">ワークフロー</span>管理</h3>
+                    </div>
+                    <p><span class="nowrap">ビジュアル</span>な<span class="nowrap">ワークフローデザイナー</span>、<span class="nowrap">デジタル</span>署名、自動<span class="nowrap">ルーティング</span>、<span class="nowrap">リアルタイム</span>進捗管理で承認<span class="nowrap">プロセス</span>を効率化。</p>
+                    <div class="module-metric">→ 承認期間を3〜5日短縮</div>
+                </div>
+
+                <div class="module">
+                    <div class="module-header">
+                        <span class="number-badge">03</span>
+                        <h3><span class="nowrap">ポリシー</span>配布・公開</h3>
+                    </div>
+                    <p>Slack、Teams、<span class="nowrap">WhatsApp</span>など<span class="nowrap">マルチチャネル</span>で配信。一元化された<span class="nowrap">リポジトリ</span>と緊急更新用の<span class="nowrap">ポリシーメモ</span>機能を搭載。</p>
+                    <div class="module-metric">→ 95%以上の通知到達率を実現</div>
+                </div>
+
+                <div class="module">
+                    <div class="module-header">
+                        <span class="number-badge">04</span>
+                        <h3><span class="nowrap">ポリシー</span>浸透・<span class="nowrap">エンゲージメント</span></h3>
+                    </div>
+                    <p>双方向の確認<span class="nowrap">テスト</span>で理解度を検証（形式的な<span class="nowrap">チェックボックス</span>ではありません）。<span class="nowrap">ゲーム</span>化要素や管理者への<span class="nowrap">エスカレーション</span>機能も搭載。</p>
+                    <div class="module-metric">→ 95%以上の承認率と90%以上の理解度を達成</div>
+                </div>
+
+                <div class="module">
+                    <div class="module-header">
+                        <span class="number-badge">05</span>
+                        <h3><span class="nowrap">コンプライアンス</span>・<span class="nowrap">コパイロット</span>（AI<span class="nowrap">アシスタント</span>）</h3>
+                    </div>
+                    <p>AI<span class="nowrap">セマンティック</span>検索で必要な<span class="nowrap">ガイダンス</span>を即座に提供。違反追跡や行動分析で日常業務の<span class="nowrap">コンプライアンス</span>を支援。</p>
+                    <div class="module-metric">→ 検索時間を30秒未満に短縮（20倍高速化）</div>
+                </div>
+
+                <div class="module">
+                    <div class="module-header">
+                        <span class="number-badge">06</span>
+                        <h3>分析・<span class="nowrap">レビュー</span>管理</h3>
+                    </div>
+                    <p>経営層向け<span class="nowrap">ダッシュボード</span>、自動<span class="nowrap">レビュートリガー</span>、予測分析、<span class="nowrap">コンプライアンスレポート</span>で<span class="nowrap">データ</span>に基づく意思決定を実現。</p>
+                    <div class="module-metric">→ 監査準備時間を60〜85%短縮</div>
+                </div>
+
+                <div class="module">
+                    <div class="module-header">
+                        <span class="number-badge">07</span>
+                        <h3><span class="nowrap">システム</span>管理・設定</h3>
+                    </div>
+                    <p>役割<span class="nowrap">ベース</span>の<span class="nowrap">アクセス</span>制御（RBAC）、<span class="nowrap">シングルサインオン</span>・多要素認証、人事<span class="nowrap">システム</span>連携（Workday、BambooHR）で<span class="nowrap">セキュア</span>な運用を実現。</p>
+                    <div class="module-metric">→ SOC 2 Type 2準拠</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="results" class="results">
+        <div class="container">
+            <div class="section-header">
+                <span class="label">導入効果</span>
+                <h2><span class="nowrap">ポリシー管理</span>指標を改善</h2>
+                <p class="section-lead">
+                    PolicyHub導入により、<span class="nowrap">ポリシー</span>の<span class="nowrap">ライフサイクル</span>全体で測定可能な効果を実現。
+                </p>
+            </div>
+
+            <div class="comparison-wrapper">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>指標</th>
+                            <th>現状</th>
+                            <th>PolicyHub導入後</th>
+                            <th>改善効果</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>ポリシー作成時間</strong></td>
+                            <td class="before">8〜12週間</td>
+                            <td class="after">2〜4週間</td>
+                            <td><span class="improvement">50〜70%短縮</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>従業員承認率</strong></td>
+                            <td class="before">30〜50%</td>
+                            <td class="after">95%以上</td>
+                            <td><span class="improvement">2〜3倍改善</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>理解度検証</strong></td>
+                            <td class="before">なし（形式的な確認のみ）</td>
+                            <td class="after">90%以上の合格率</td>
+                            <td><span class="improvement">新たな機能</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>ポリシー検索時間</strong></td>
+                            <td class="before">10分</td>
+                            <td class="after">30秒未満</td>
+                            <td><span class="improvement">20倍高速化</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>監査準備期間</strong></td>
+                            <td class="before">4〜12週間</td>
+                            <td class="after">1〜2週間</td>
+                            <td><span class="improvement">60〜85%短縮</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>コンプライアンス状況の可視化</strong></td>
+                            <td class="before">事後対応型</td>
+                            <td class="after">リアルタイムで予防的</td>
+                            <td><span class="improvement">継続的な監視を実現</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="competitive-header">
+                <h3>PolicyHubが選ばれる理由</h3>
+            </div>
+
+            <div class="competitive-grid">
+                <div class="competitor-card">
+                    <h4><span class="nowrap">エンタープライズGRC</span></h4>
+                    <p class="strength">強力な作成<span class="nowrap">ツール</span></p>
+                    <p class="strength"><span class="nowrap">ワークフロー</span>自動化</p>
+                    <p class="weakness"><span class="nowrap">エンゲージメント</span>が弱い</p>
+                    <p class="weakness">理解度検証なし</p>
+                    <p class="weakness">限定的な分析機能</p>
+                </div>
+
+                <div class="competitor-card">
+                    <h4><span class="nowrap">LMS</span><span class="nowrap">プラットフォーム</span></h4>
+                    <p class="strength">充実した研修・承認機能</p>
+                    <p class="strength"><span class="nowrap">コース</span>管理</p>
+                    <p class="weakness"><span class="nowrap">ポリシー</span>作成機能なし</p>
+                    <p class="weakness"><span class="nowrap">ライフサイクル</span>管理なし</p>
+                    <p class="weakness">承認<span class="nowrap">ワークフロー</span>なし</p>
+                </div>
+
+                <div class="competitor-card">
+                    <h4><span class="nowrap">ドキュメント</span>管理</h4>
+                    <p class="strength"><span class="nowrap">バージョン</span>管理</p>
+                    <p class="strength"><span class="nowrap">ファイル</span>保管</p>
+                    <p class="weakness"><span class="nowrap">ワークフロー</span>なし</p>
+                    <p class="weakness"><span class="nowrap">エンゲージメント</span><span class="nowrap">ツール</span>なし</p>
+                    <p class="weakness"><span class="nowrap">コンプライアンス</span>追跡なし</p>
+                </div>
+
+                <div class="competitor-card highlight">
+                    <h4>PolicyHub</h4>
+                    <p class="strength">完全な<span class="nowrap">ライフサイクル</span>管理</p>
+                    <p class="strength">AI活用の<span class="nowrap">エンゲージメント</span></p>
+                    <p class="strength">理解度検証機能</p>
+                    <p class="strength">必要な時に<span class="nowrap">コンプライアンス</span>支援</p>
+                    <p class="strength"><span class="nowrap">エンドツーエンド</span>分析</p>
+                    <p class="tagline">唯一の統合<span class="nowrap">ソリューション</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="trust">
+        <div class="container">
+            <div class="section-header">
+                <span class="label">エンタープライズセキュリティとコンプライアンス</span>
+                <h2>規制産業に対応した設計</h2>
+            </div>
+
+            <div class="trust-grid">
+                <div class="trust-badge">SOC 2<br>Type 2</div>
+                <div class="trust-badge">ISO 27001<br>:2013</div>
+                <div class="trust-badge">GDPR<br>Compliant</div>
+                <div class="trust-badge">HIPAA<br>Ready</div>
+                <div class="trust-badge">21 CFR<br>Part 11</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2><span class="nowrap">ポリシー管理</span>の効率化を始めませんか</h2>
+            <p>PolicyHub導入により、95%以上の承認率と60〜85%の監査準備時間短縮を実現できます。</p>
+            <a href="mailto:info@neuralnexus.lk?subject=デモのご依頼" class="btn">デモのご依頼</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="Logo_Horizontal_Full_White.png" alt="NeuralNexus" class="footer-logo">
+                    <h3 class="footer-tagline">事後対応からリアルタイム管理へ</h3>
+                    <p class="footer-description">確実なコンプライアンス。迅速な監査対応。優れた業務効率。</p>
+                    <p class="footer-contact">
+                        お問い合わせ・WhatsApp <a href="https://wa.me/94777880390" target="_blank">+94 77 788 0390</a>
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 NeuralNexus. インテリジェントシステムで未来を構築します。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Progress bar
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.querySelector('.progress-bar').style.width = scrollPercent + '%';
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 100;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
