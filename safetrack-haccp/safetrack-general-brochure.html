@@ -408,6 +408,14 @@
             gap: 3rem;
             align-items: center;
         }
+        .lms-image-wrap {
+            border-radius: 16px;
+            overflow: hidden;
+            min-width: 0;
+            box-shadow: 0 20px 44px rgba(0,0,0,0.11),
+                        0 0 0 1px rgba(0,0,0,0.05);
+            order: -1;
+        }
         .lms-image-wrap img { width: 100%; height: auto; display: block; }
         .lms-text .eyebrow { margin-bottom: 0.7rem; }
         .lms-text h2 {
@@ -817,9 +825,9 @@
     <!-- ── Page 1: Monitoring + Alerting ─────────── -->
 
     <section id="hero" class="hero-section" aria-label="Introduction">
-        <span class="eyebrow">Food Safety Compliance &nbsp;&middot;&nbsp; Built for Commercial Kitchens</span>
+        <span class="eyebrow">Food Safety Compliance &nbsp;&middot;&nbsp; HACCP Standards &nbsp;&middot;&nbsp; Built for Commercial Kitchens</span>
         <h1>Your Kitchen Shouldn&rsquo;t Rely on<br><span class="text-gradient">Who&rsquo;s Standing Watch</span> Tonight</h1>
-        <p class="hero-subline">In a high-volume kitchen, food safety lives in experienced heads &mdash; and that&rsquo;s a single point of failure. SafeTrack digitises what your head chef already knows: every receiving check, every temperature log, every corrective action, running reliably without them needing to be everywhere at once.</p>
+        <p class="hero-subline">In a high-volume kitchen, food safety lives in experienced heads &mdash; and that&rsquo;s a single point of failure. SafeTrack digitises your HACCP monitoring &mdash; every receiving check, every temperature log, every corrective action &mdash; running reliably without your head chef needing to be everywhere at once.</p>
         <div class="coral-rule" aria-hidden="true"></div>
     </section>
 
@@ -849,8 +857,8 @@
                     </svg>
                 </div>
                 <div>
-                    <div class="fact-risk-title">$250K&ndash;$1M+ Per Incident</div>
-                    <div class="fact-risk-desc">Recalls, rework, and disposal costs from preventable breaches</div>
+                    <div class="fact-risk-title">$50K&ndash;$250K+ Per Incident</div>
+                    <div class="fact-risk-desc">Combined closure costs, legal settlements, remediation, and lost revenue from a single food safety event</div>
                 </div>
             </div>
             <div class="fact-risk-card">
@@ -977,7 +985,9 @@
 
     <section id="training" class="lms-spotlight" aria-labelledby="lms-heading">
         <div class="lms-inner">
-            <img src="lms-form-preview.png" alt="SafeTrack Learning Management System interface showing a food-safety MCQ assessment module">
+            <div class="lms-image-wrap">
+                <img src="lms-form-preview.png" alt="SafeTrack Learning Management System interface showing a food-safety MCQ assessment module">
+            </div>
             <div class="lms-text">
                 <span class="eyebrow">Built-In Training Module</span>
                 <h2 id="lms-heading">Every New Face Gets Trained, Assessed, and Certified Before They Touch a Chopping Board</h2>
@@ -1113,7 +1123,7 @@
 
             <div class="timeline-col">
                 <span class="eyebrow">Delivery Timeline</span>
-                <h2 id="timeline-heading">Go-Live in 6 Weeks</h2>
+                <h2 id="timeline-heading">Live in 6 Weeks</h2>
                 <p class="timeline-subtitle">A structured rollout built around your kitchen calendar &mdash; minimal disruption, no big-bang go-live.</p>
                 <div class="timeline">
                     <div class="tl-item">
