@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neuralnexus (Private) Limited — Company Profile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* No animations, no transitions — fully static */
+    * { transition: none !important; animation: none !important; }
+
+    :root {
+      --primary:      #FF6B6B;
+      --primary-dark: #FF5252;
+      --secondary:    #007AFF;
+      --gray-900:     #171717;
+      --gray-700:     #404040;
+      --gray-600:     #525252;
+      --gray-400:     #A3A3A3;
+      --gray-200:     #E5E5E5;
+      --gray-100:     #F5F5F5;
+      --gray-50:      #FAFAFA;
+    }
+
+    html { scroll-behavior: auto; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--gray-900);
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+
+    /* ── Layout helpers ─────────────────────────────────────── */
+    .container {
+      width: 100%;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 clamp(20px, 5vw, 64px);
+    }
+
+    section { padding: clamp(64px, 10vw, 120px) 0; }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .section-heading {
+      font-size: clamp(24px, 3.5vw, 38px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      color: var(--gray-900);
+    }
+
+    .section-heading .grad {
+      background: linear-gradient(135deg, #FF6B6B 0%, #FF5252 50%, #007AFF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-sub {
+      margin-top: 14px;
+      font-size: clamp(15px, 1.5vw, 17px);
+      color: var(--gray-600);
+      max-width: 640px;
+      line-height: 1.7;
+    }
+
+
+    /* ── Hero ───────────────────────────────────────────────── */
+    .hero {
+      padding: clamp(80px, 12vw, 140px) 0 clamp(64px, 10vw, 120px);
+      background: linear-gradient(160deg, #fff 0%, #fafafa 60%, #fff5f5 100%);
+      position: relative;
+      overflow: clip; /* clips bg blobs without affecting inner scroll context */
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,107,107,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: 20%;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,122,255,0.05) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: clamp(40px, 6vw, 80px);
+    }
+
+    .hero-content { min-width: 0; }
+
+    .hero-logo {
+      width: clamp(200px, 22vw, 320px);
+      height: clamp(200px, 22vw, 320px);
+      object-fit: contain;
+      align-self: start;
+      margin-top: 40px;
+      display: block;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-600);
+      margin-bottom: 24px;
+    }
+
+    .hero-eyebrow-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+
+    .hero-title {
+      font-size: clamp(40px, 6.5vw, 76px);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.05;
+      margin-bottom: 12px;
+    }
+
+    .hero-title .text-gradient {
+      background: linear-gradient(135deg, #FF6B6B 0%, #FF5252 45%, #007AFF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(16px, 1.8vw, 20px);
+      font-weight: 400;
+      color: var(--gray-600);
+      max-width: 580px;
+      line-height: 1.6;
+      margin-bottom: 36px;
+      font-style: italic;
+    }
+
+    .hero-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 48px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-700);
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 980px;
+      padding: 6px 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .chip.primary {
+      color: var(--primary);
+      background: rgba(255,107,107,0.06);
+      border-color: rgba(255,107,107,0.22);
+    }
+
+    /* ── Stats bar ──────────────────────────────────────────── */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--gray-200);
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      overflow: hidden;
+      max-width: 780px;
+    }
+
+    .stat-cell {
+      background: white;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .stat-num {
+      font-size: clamp(26px, 3vw, 34px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--primary);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--gray-600);
+      line-height: 1.4;
+      font-weight: 500;
+    }
+
+    /* ── Overview ───────────────────────────────────────────── */
+    .overview { background: white; }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 6vw, 80px);
+      align-items: start;
+    }
+
+    .overview-text {
+      font-size: clamp(15px, 1.4vw, 17px);
+      color: var(--gray-700);
+      line-height: 1.75;
+    }
+
+    .overview-text + .overview-text { margin-top: 18px; }
+
+    .overview-aside {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .track-card {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 14px;
+      padding: 20px 22px;
+      border-left: 3px solid var(--primary);
+    }
+
+    .track-card.blue { border-left-color: var(--secondary); }
+
+    .track-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 6px;
+    }
+
+    .track-body {
+      font-size: 13.5px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    /* ── USPs ───────────────────────────────────────────────── */
+    .usps { background: var(--gray-50); }
+
+    .usp-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .usp-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+    }
+
+    .usp-card:hover {
+      border-color: rgba(255,107,107,0.35);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.07);
+      transform: translateY(-4px);
+    }
+
+    .usp-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: rgba(255,107,107,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .usp-icon svg { width: 22px; height: 22px; stroke: var(--primary); }
+
+    .usp-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gray-900);
+    }
+
+    .usp-body {
+      font-size: 13.5px;
+      color: var(--gray-600);
+      line-height: 1.65;
+    }
+
+    /* ── Competencies ───────────────────────────────────────── */
+    .competencies { background: white; }
+
+    .comp-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 40px;
+    }
+
+    .comp-tag {
+      display: inline-flex;
+      align-items: center;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--gray-700);
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 8px 18px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .comp-tag:hover { border-color: rgba(255,107,107,0.4); color: var(--primary); }
+
+    .comp-tag.accent {
+      color: var(--primary);
+      border-color: rgba(255,107,107,0.3);
+      background: rgba(255,107,107,0.04);
+      font-weight: 600;
+    }
+
+    /* ── Methodology ────────────────────────────────────────── */
+    .methodology { background: var(--gray-900); }
+
+    .methodology .section-label { color: rgba(255,107,107,0.9); }
+    .methodology .section-heading { color: white; }
+    .methodology .section-sub { color: rgba(255,255,255,0.55); }
+
+    .method-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 48px;
+    }
+
+    .method-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .method-card:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,107,107,0.3);
+    }
+
+    .method-num {
+      font-size: 48px;
+      font-weight: 800;
+      color: rgba(255,107,107,0.12);
+      line-height: 1;
+      position: absolute;
+      top: 12px;
+      right: 16px;
+    }
+
+    .method-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.92);
+      padding-right: 36px;
+      line-height: 1.35;
+    }
+
+    .method-body {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.65;
+    }
+
+    /* Flow pipeline */
+    .flow-wrap { margin-top: 40px; }
+
+    .flow-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 16px;
+    }
+
+    .flow-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .flow-step {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 14px 10px;
+    }
+
+    .flow-step.last {
+      border-color: rgba(0,122,255,0.35);
+      background: rgba(0,122,255,0.1);
+    }
+
+    .flow-num {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--primary);
+    }
+
+    .flow-step.last .flow-num { color: var(--secondary); }
+
+    .flow-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .flow-arrow {
+      font-size: 18px;
+      color: rgba(255,255,255,0.2);
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    /* ── Experience ─────────────────────────────────────────── */
+    .experience { background: white; }
+
+    .uc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .uc-card {
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border-left: 4px solid var(--primary);
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+
+    .uc-card:hover {
+      box-shadow: 0 12px 28px rgba(0,0,0,0.07);
+      transform: translateY(-3px);
+    }
+
+    .uc-card.blue { border-left-color: var(--secondary); }
+
+    .uc-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--primary);
+      background: rgba(255,107,107,0.08);
+      border-radius: 980px;
+      padding: 3px 12px;
+      width: fit-content;
+    }
+
+    .uc-tag.blue { color: var(--secondary); background: rgba(0,122,255,0.08); }
+
+    .uc-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gray-900);
+      line-height: 1.3;
+    }
+
+    .uc-body {
+      font-size: 13.5px;
+      color: var(--gray-600);
+      line-height: 1.65;
+    }
+
+    .uc-body strong { color: var(--gray-700); font-weight: 600; }
+
+    .uc-stat {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .uc-stat-pill {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--primary);
+      background: rgba(255,107,107,0.07);
+      border-radius: 6px;
+      padding: 4px 10px;
+    }
+
+    .uc-stat-pill.blue { color: var(--secondary); background: rgba(0,122,255,0.07); }
+
+    /* ── Why section ────────────────────────────────────────── */
+    .why { background: var(--gray-50); }
+
+    .why-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 6vw, 80px);
+      align-items: center;
+    }
+
+    .why-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .why-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .why-dot-wrap {
+      width: 28px; height: 28px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      background: rgba(255,107,107,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+
+    .why-dot-wrap svg { width: 14px; height: 14px; stroke: var(--primary); }
+
+    .why-text {
+      font-size: 14.5px;
+      color: var(--gray-700);
+      line-height: 1.6;
+    }
+
+    .why-text strong { color: var(--gray-900); font-weight: 600; }
+
+    .why-callout {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 20px;
+      padding: clamp(28px, 4vw, 44px);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.05);
+    }
+
+    .why-callout-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 14px;
+      line-height: 1.35;
+    }
+
+    .why-callout-body {
+      font-size: 14.5px;
+      color: var(--gray-600);
+      line-height: 1.75;
+    }
+
+    .why-callout-divider {
+      height: 1px;
+      background: var(--gray-200);
+      margin: 20px 0;
+    }
+
+    .why-callout-note {
+      font-size: 13px;
+      color: var(--gray-400);
+      font-style: italic;
+    }
+
+    /* ── Footer ─────────────────────────────────────────────── */
+    footer {
+      background: var(--gray-900);
+      padding: clamp(48px, 7vw, 80px) 0 clamp(32px, 4vw, 48px);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: clamp(32px, 5vw, 64px);
+      margin-bottom: 48px;
+    }
+
+    .footer-brand img { height: 40px; margin-bottom: 16px; }
+
+    .footer-brand-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 6px;
+    }
+
+    .footer-brand-name span { color: var(--primary); }
+
+    .footer-reg {
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .footer-contact-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 6px;
+    }
+
+    .footer-contact-row svg {
+      width: 14px; height: 14px;
+      stroke: rgba(255,107,107,0.7);
+      flex-shrink: 0;
+    }
+
+    .footer-col-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 16px;
+    }
+
+    .footer-person {
+      margin-bottom: 16px;
+    }
+
+    .footer-person-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 3px;
+    }
+
+    .footer-person-role {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 4px;
+    }
+
+    .footer-person-exp {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--primary);
+      background: rgba(255,107,107,0.1);
+      border-radius: 980px;
+      padding: 2px 10px;
+      margin-bottom: 4px;
+    }
+
+    .footer-linkedin {
+      font-size: 12px;
+      color: var(--secondary);
+      text-decoration: none;
+      opacity: 0.8;
+    }
+
+    .footer-linkedin:hover { opacity: 1; }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-bottom-left {
+      font-size: 12px;
+      color: rgba(255,255,255,0.25);
+    }
+
+    .footer-bottom-right {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-bottom-right a {
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-bottom-right a:hover { color: var(--primary); }
+
+    /* ── Responsive ─────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero-inner     { grid-template-columns: 1fr; }
+      .hero-logo      { width: 160px; height: 160px; margin: 0 auto; }
+      .overview-grid  { grid-template-columns: 1fr; }
+      .usp-grid       { grid-template-columns: 1fr 1fr; }
+      .method-grid    { grid-template-columns: 1fr 1fr; }
+      .uc-grid        { grid-template-columns: 1fr; }
+      .why-inner      { grid-template-columns: 1fr; }
+      .footer-grid    { grid-template-columns: 1fr 1fr; }
+      .stats-bar      { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .usp-grid    { grid-template-columns: 1fr; }
+      .method-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .stats-bar   { grid-template-columns: repeat(2, 1fr); }
+      .flow-bar    { flex-direction: column; height: auto; border-radius: 10px; }
+      .flow-step   { height: 40px; }
+      .flow-step::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Hero ────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+
+      <!-- Left: text content -->
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <span class="hero-eyebrow-dot"></span>
+          Company Profile &mdash; Asian Development Bank &mdash; Electricity Trading Platform Simulation
+        </div>
+        <h1 class="hero-title">
+          <span class="text-gradient">Neuralnexus</span><br/>
+          (Private) Limited
+        </h1>
+        <p class="hero-subtitle">
+          "We combine deep technical expertise with breakthrough methodologies to build modern applications at unprecedented speed."
+        </p>
+        <div class="hero-chips">
+          <span class="chip primary">AI-Powered Software Development</span>
+          <span class="chip">Registered in Sri Lanka</span>
+          <span class="chip">Incorporated June 2025</span>
+          <span class="chip">Reg. No. PV 00333341</span>
+          <span class="chip">neuralnexus.lk</span>
+        </div>
+        <div class="stats-bar">
+          <div class="stat-cell">
+            <div class="stat-num">90%</div>
+            <div class="stat-label">Faster development cycles</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-num">20+</div>
+            <div class="stat-label">Years leadership experience (each founder)</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-num">4</div>
+            <div class="stat-label">Countries with active projects &amp; partnerships</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-num">2</div>
+            <div class="stat-label">Proprietary MVPs released</div>
+          </div>
+        </div>
+      </div><!-- /hero-content -->
+
+      <!-- Right: logo, fully visible -->
+      <img
+        src="../Logo_Symbol_color.png"
+        alt="Neuralnexus"
+        class="hero-logo"
+      />
+
+    </div><!-- /hero-inner -->
+  </div>
+</section>
+
+<!-- ── Company Overview ─────────────────────────────────────── -->
+<section class="overview">
+  <div class="container">
+    <div class="overview-grid">
+      <div>
+        <p class="section-label">Company Overview</p>
+        <h2 class="section-heading">Who We Are</h2>
+        <p class="overview-text" style="margin-top:20px;">
+          Neuralnexus (Private) Limited is an AI-powered software development firm incorporated in Sri Lanka,
+          co-founded by two technology executives each with over 20 years of enterprise technology leadership —
+          including senior roles at MillenniumIT, part of the London Stock Exchange Group.
+        </p>
+        <p class="overview-text" style="margin-top:16px;">
+          Neuralnexus delivers production-grade software up to <strong>90% faster</strong> than traditional
+          development firms, without compromising quality or rigour. From rapid prototypes to mission-critical
+          enterprise systems, we transform client requirements into powerful, scalable software products.
+        </p>
+        <p class="overview-text" style="margin-top:16px;">
+          Despite being a young company, Neuralnexus has rapidly established an international footprint
+          with active engagements from the United States and strategic technology partnerships across the
+          UAE, US, Australia, and Japan — including a formal partnership with Modul-Eight Consultancy in
+          Dubai. Neuralnexus brings world-class delivery standards with the cost-competitive advantage of
+          a highly skilled, Sri Lanka-based team.
+        </p>
+      </div>
+      <div class="overview-aside">
+        <p class="section-label" style="margin-bottom:16px;">Our Two Delivery Tracks</p>
+        <div class="track-card">
+          <div class="track-title">Bespoke Development</div>
+          <div class="track-body">Custom software solutions tailored to client requirements — from rapid prototypes to
+          full production-grade systems. Clients receive a dedicated team, direct access to senior engineers, and
+          delivery on compressed timelines that traditional firms cannot match.</div>
+        </div>
+        <div class="track-card blue">
+          <div class="track-title">Proprietary Product Development</div>
+          <div class="track-body">Neuralnexus also builds and commercialises its own software products, currently spanning
+          enterprise policy lifecycle management (PolicyHub) and automated food safety compliance (SafeTrack) —
+          both fully operational and released as MVPs.</div>
+        </div>
+        <div style="background:var(--gray-50); border:1px solid var(--gray-200); border-radius:14px; padding:18px 20px; margin-top:2px;">
+          <div style="font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-400); margin-bottom:10px;">Active Market Presence</div>
+          <div style="display:flex; flex-wrap:wrap; gap:8px;">
+            <span class="chip" style="font-size:12px; padding:4px 12px;">United States</span>
+            <span class="chip" style="font-size:12px; padding:4px 12px;">UAE</span>
+            <span class="chip" style="font-size:12px; padding:4px 12px;">Australia</span>
+            <span class="chip" style="font-size:12px; padding:4px 12px;">Japan</span>
+            <span class="chip" style="font-size:12px; padding:4px 12px;">Sri Lanka</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Value Proposition ────────────────────────────────────── -->
+<section class="usps">
+  <div class="container">
+    <p class="section-label">Our Value Proposition</p>
+    <h2 class="section-heading">Why Neuralnexus</h2>
+    <p class="section-sub">Five differentiators that set Neuralnexus apart from conventional software development firms.</p>
+    <div class="usp-grid">
+
+      <div class="usp-card">
+        <div class="usp-icon">
+          <svg fill="none" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+        </div>
+        <div class="usp-title">AI-Powered Development</div>
+        <div class="usp-body">AI embedded at every stage of the SDLC — from requirements analysis through to testing and deployment — delivering faster, higher-quality outcomes across every engagement.</div>
+      </div>
+
+      <div class="usp-card">
+        <div class="usp-icon">
+          <svg fill="none" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+        </div>
+        <div class="usp-title">Unprecedented Delivery Speed</div>
+        <div class="usp-body">Breakthrough methodologies enable delivery from prototype to production at velocities traditional development firms cannot match — up to 90% faster without sacrificing quality or rigour.</div>
+      </div>
+
+      <div class="usp-card">
+        <div class="usp-icon">
+          <svg fill="none" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84 51.39 51.39 0 00-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"/></svg>
+        </div>
+        <div class="usp-title">Deep Technical Expertise</div>
+        <div class="usp-body">Leadership with 20+ years of hands-on experience across complex enterprise systems, trading platforms, simulation environments, and mission-critical application domains — including senior roles at MillenniumIT (LSEG).</div>
+      </div>
+
+      <div class="usp-card">
+        <div class="usp-icon">
+          <svg fill="none" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg>
+        </div>
+        <div class="usp-title">End-to-End Capability</div>
+        <div class="usp-body">Full lifecycle delivery: requirements engineering, architecture design, agile development, QA, deployment, and post-delivery support — a single accountable partner from brief to launch.</div>
+      </div>
+
+      <div class="usp-card">
+        <div class="usp-icon">
+          <svg fill="none" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253"/></svg>
+        </div>
+        <div class="usp-title">Global Standards, Local Advantage</div>
+        <div class="usp-body">International project experience and multi-country partnerships — with Modul-Eight Consultancy (UAE), US market clients, and partners in Australia and Japan — combined with Sri Lanka's cost-competitive delivery model.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Core Competencies ────────────────────────────────────── -->
+<section class="competencies">
+  <div class="container">
+    <p class="section-label">Technical Capability Areas</p>
+    <h2 class="section-heading">Core Competencies</h2>
+    <p class="section-sub">The technical domains Neuralnexus actively delivers in — spanning simulation, enterprise systems, cloud, and AI.</p>
+    <div class="comp-grid">
+      <span class="comp-tag accent">AI &amp; Machine Learning Integration</span>
+      <span class="comp-tag accent">Simulation &amp; Modelling Systems</span>
+      <span class="comp-tag accent">Trading Platform Development</span>
+      <span class="comp-tag">Custom Enterprise Software</span>
+      <span class="comp-tag">Compliance &amp; Regulatory Software</span>
+      <span class="comp-tag">Cloud-Native Architecture</span>
+      <span class="comp-tag">API Design &amp; Systems Integration</span>
+      <span class="comp-tag">Agile &amp; Rapid Prototyping</span>
+      <span class="comp-tag">Requirements Engineering &amp; Discovery</span>
+      <span class="comp-tag">DevOps &amp; CI/CD Pipeline Implementation</span>
+      <span class="comp-tag">IoT &amp; Real-Time Data Pipelines</span>
+      <span class="comp-tag">Full-Stack Web &amp; Mobile Development</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── Methodology ──────────────────────────────────────────── -->
+<section class="methodology">
+  <div class="container">
+    <p class="section-label">Software Development Methodology</p>
+    <h2 class="section-heading">Our Delivery Approach</h2>
+    <p class="section-sub">A structured, six-phase delivery framework built on discovery-first principles and AI-augmented engineering.</p>
+    <div class="method-grid">
+
+      <div class="method-card">
+        <span class="method-num">01</span>
+        <div class="method-title">Discovery &amp; Requirements Engineering</div>
+        <div class="method-body">Structured stakeholder workshops, domain analysis, and use case modelling — including four dedicated discovery sessions. Full scope, cost, and success metrics are defined before a single line of code is written.</div>
+      </div>
+
+      <div class="method-card">
+        <span class="method-num">02</span>
+        <div class="method-title">Architecture-First Design</div>
+        <div class="method-body">Scalable, cloud-native architecture designed for performance, security, and long-term extensibility — with simulation workloads, real-time data throughput, and regulatory compliance explicitly factored in from day one.</div>
+      </div>
+
+      <div class="method-card">
+        <span class="method-num">03</span>
+        <div class="method-title">AI-Augmented Development</div>
+        <div class="method-body">AI tooling embedded across the SDLC — accelerating code generation, automated peer review, and test coverage — while expert engineers validate every output and uphold rigorous standards for correctness and reliability.</div>
+      </div>
+
+      <div class="method-card">
+        <span class="method-num">04</span>
+        <div class="method-title">Agile Delivery Framework</div>
+        <div class="method-body">Sprint-based iterative delivery with continuous client collaboration, regular working demos, and adaptive planning — ensuring the product evolves in lock-step with stakeholder needs and evolving regulatory requirements.</div>
+      </div>
+
+      <div class="method-card">
+        <span class="method-num">05</span>
+        <div class="method-title">Integrated Quality Assurance</div>
+        <div class="method-body">Automated and manual testing built into every sprint. QA is a continuous function — not a post-development phase — ensuring simulation accuracy, data integrity, and system resilience are validated throughout the build.</div>
+      </div>
+
+      <div class="method-card">
+        <span class="method-num">06</span>
+        <div class="method-title">Deployment &amp; Knowledge Transfer</div>
+        <div class="method-body">Structured deployment with full technical documentation, end-user training, and comprehensive knowledge transfer — ensuring the client team is fully equipped to operate, maintain, and extend the delivered system independently.</div>
+      </div>
+
+    </div>
+    <div class="flow-wrap">
+      <div class="flow-label">Delivery Pipeline</div>
+      <div class="flow-bar">
+        <div class="flow-step">
+          <span class="flow-num">01</span>
+          <span class="flow-name">Discovery</span>
+        </div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step">
+          <span class="flow-num">02</span>
+          <span class="flow-name">Architecture</span>
+        </div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step">
+          <span class="flow-num">03</span>
+          <span class="flow-name">Development</span>
+        </div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step">
+          <span class="flow-num">04</span>
+          <span class="flow-name">QA &amp; Testing</span>
+        </div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step">
+          <span class="flow-num">05</span>
+          <span class="flow-name">Deployment</span>
+        </div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-step last">
+          <span class="flow-num">06</span>
+          <span class="flow-name">Support</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Experience ───────────────────────────────────────────── -->
+<section class="experience">
+  <div class="container">
+    <p class="section-label">Relevant Experience</p>
+    <h2 class="section-heading">Selected Engagements &amp; Use Cases</h2>
+    <p class="section-sub">A cross-section of Neuralnexus's bespoke development engagements, proprietary products, and international partnerships.</p>
+    <div class="uc-grid">
+
+      <div class="uc-card">
+        <span class="uc-tag">Bespoke Development</span>
+        <div class="uc-title">US-Based Custom Software Engagement</div>
+        <div class="uc-body">
+          <strong>Client:</strong> High-growth US-based technology organisation (name withheld by NDA)<br/><br/>
+          <strong>Scope:</strong> Bespoke custom software development for a US-market product, delivered remotely by the Neuralnexus team with direct senior engineer involvement throughout.<br/><br/>
+          <strong>Outcome:</strong> Successfully delivered to international client standards, demonstrating Neuralnexus's capacity to execute across geographies, time zones, and demanding delivery schedules.
+        </div>
+      </div>
+
+      <div class="uc-card">
+        <span class="uc-tag">Proprietary Product</span>
+        <div class="uc-title">PolicyHub — Enterprise Policy Lifecycle Management</div>
+        <div class="uc-body">
+          <strong>Domain:</strong> Enterprise compliance &amp; regulatory governance<br/><br/>
+          AI-powered policy lifecycle management platform for enterprise organisations — from collaborative authoring through multi-channel distribution to verified adoption and continuous compliance monitoring.
+        </div>
+        <div class="uc-stat">
+          <span class="uc-stat-pill">50–70% Faster Policy Creation</span>
+          <span class="uc-stat-pill">95% Acknowledgement in 30 Days</span>
+          <span class="uc-stat-pill">60–85% Faster Audit Prep</span>
+        </div>
+      </div>
+
+      <div class="uc-card blue">
+        <span class="uc-tag blue">Proprietary Product</span>
+        <div class="uc-title">SafeTrack — Real-Time Food Safety Operations</div>
+        <div class="uc-body">
+          <strong>Domain:</strong> Operational compliance &amp; IoT monitoring<br/><br/>
+          Transforms manual HACCP compliance into automated, audit-ready operations using real-time IoT sensor integration, instant breach detection, auto-generated corrective action forms, and self-documenting compliance workflows.
+        </div>
+        <div class="uc-stat">
+          <span class="uc-stat-pill blue">95%+ Task Completion Rate</span>
+          <span class="uc-stat-pill blue">vs. 70–80% in Manual Systems</span>
+          <span class="uc-stat-pill blue">Zero Manual Steps Sensor-to-Action</span>
+        </div>
+      </div>
+
+      <div class="uc-card blue">
+        <span class="uc-tag blue">International Partnerships</span>
+        <div class="uc-title">Strategic Technology Partnerships — UAE, US, Australia &amp; Japan</div>
+        <div class="uc-body">
+          <strong>Key Partner:</strong> Modul-Eight Consultancy, Dubai Aviation City, UAE — a specialist business advisory firm in policy development, operational workflows, and risk management, serving clients across the Gulf region.<br/><br/>
+          These partnerships confirm Neuralnexus's capability to operate within international delivery frameworks, multi-party project structures, and cross-border client engagements of the type common in ADB-funded programmes.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Why Neuralnexus ──────────────────────────────────────── -->
+<section class="why">
+  <div class="container">
+    <div class="why-inner">
+      <div>
+        <p class="section-label">Tailored to This Engagement</p>
+        <h2 class="section-heading">Why Neuralnexus for the ADB Electricity Trading Simulation</h2>
+        <p class="section-sub" style="margin-bottom:32px;">Neuralnexus brings a rare combination of simulation expertise, trading platform experience, and AI-accelerated engineering — directly aligned to this engagement.</p>
+        <div class="why-list">
+          <div class="why-item">
+            <div class="why-dot-wrap">
+              <svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            </div>
+            <div class="why-text"><strong>Simulation &amp; complex systems modelling</strong> — proven capability in designing and delivering simulation environments for enterprise-grade applications</div>
+          </div>
+          <div class="why-item">
+            <div class="why-dot-wrap">
+              <svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            </div>
+            <div class="why-text"><strong>Trading platform experience at the leadership level</strong> — direct prior experience with commodity trading systems, real-time market data, and complex financial platform architecture (see CVs submitted separately)</div>
+          </div>
+          <div class="why-item">
+            <div class="why-dot-wrap">
+              <svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            </div>
+            <div class="why-text"><strong>Architecture for real-time, high-integrity systems</strong> — cloud-native design experience with transaction integrity, regulatory compliance, and performance at scale</div>
+          </div>
+          <div class="why-item">
+            <div class="why-dot-wrap">
+              <svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            </div>
+            <div class="why-text"><strong>Agile methodology for evolving requirements</strong> — sprint-based delivery adapts in real time to changing market rules, regulatory updates, and stakeholder feedback</div>
+          </div>
+          <div class="why-item">
+            <div class="why-dot-wrap">
+              <svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            </div>
+            <div class="why-text"><strong>AI-accelerated timelines</strong> — 90% faster delivery compresses the development cycle for a complex simulation platform without sacrificing correctness</div>
+          </div>
+          <div class="why-item">
+            <div class="why-dot-wrap">
+              <svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            </div>
+            <div class="why-text"><strong>Outstanding value for an MDB-funded engagement</strong> — world-class engineering talent delivered at Sri Lanka's cost-competitive rates</div>
+          </div>
+        </div>
+      </div>
+      <div class="why-callout">
+        <div class="why-callout-title">Submitted alongside this profile</div>
+        <div class="why-callout-body">
+          The CVs of Neuralnexus's technical leadership and team members are submitted separately as part of this proposal package. These profiles demonstrate direct, hands-on experience with trading platform development, market simulation systems, and enterprise-grade financial software — providing the specific domain evidence that complements this company profile.
+        </div>
+        <div class="why-callout-divider"></div>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div style="width:36px; height:36px; border-radius:50%; background:var(--gray-100); overflow:hidden; flex-shrink:0;">
+              <img src="company-site-v2/public/images/team/sanjaya.webp" alt="Sanjaya" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'" />
+            </div>
+            <div>
+              <div style="font-size:13px; font-weight:600; color:var(--gray-900);">Sanjaya Dayananda</div>
+              <div style="font-size:12px; color:var(--gray-400);">Co-founder &amp; CEO &mdash; 20+ Years Experience</div>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div style="width:36px; height:36px; border-radius:50%; background:var(--gray-100); overflow:hidden; flex-shrink:0;">
+              <img src="company-site-v2/public/images/team/sujeewa.webp" alt="Sujeewa" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'" />
+            </div>
+            <div>
+              <div style="font-size:13px; font-weight:600; color:var(--gray-900);">Sujeewa Ediriweera</div>
+              <div style="font-size:12px; color:var(--gray-400);">Co-founder &amp; CTO &mdash; 20+ Years Experience</div>
+            </div>
+          </div>
+        </div>
+        <div class="why-callout-divider"></div>
+        <div class="why-callout-note">Full CVs and team profiles available upon request or as submitted separately in this package.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ───────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <img src="../Logo_Full_white.png" alt="Neuralnexus" />
+        <div class="footer-brand-name"><span>Neuralnexus</span> (Private) Limited</div>
+        <div class="footer-reg">
+          Reg. No. PV 00333341<br/>
+          Incorporated under the Companies Act No. 7 of 2007 (Sri Lanka)
+        </div>
+        <div class="footer-contact-row">
+          <svg fill="none" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+          No.124/11, Dutugemunu Street, Kalubowila, Colombo, Sri Lanka
+        </div>
+        <div class="footer-contact-row" style="margin-top:4px;">
+          <svg fill="none" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+          info@neuralnexus.lk
+        </div>
+        <div class="footer-contact-row">
+          <svg fill="none" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+          +94 11 251 8075
+        </div>
+        <div class="footer-contact-row">
+          <svg fill="none" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253"/></svg>
+          www.neuralnexus.lk
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Leadership</div>
+        <div class="footer-person">
+          <div class="footer-person-name">Sanjaya Dayananda</div>
+          <div class="footer-person-role">Co-founder &amp; Chief Executive Officer</div>
+          <span class="footer-person-exp">20+ Years Experience</span><br/>
+          <a href="https://www.linkedin.com/in/sanjaya-dayananda-66746623/" class="footer-linkedin" target="_blank">linkedin.com/in/sanjaya-dayananda-66746623</a>
+        </div>
+        <div class="footer-person">
+          <div class="footer-person-name">Sujeewa Ediriweera</div>
+          <div class="footer-person-role">Co-founder &amp; Chief Technology Officer</div>
+          <span class="footer-person-exp">20+ Years Experience</span><br/>
+          <a href="https://www.linkedin.com/in/sujeewae/" class="footer-linkedin" target="_blank">linkedin.com/in/sujeewae</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Our Products</div>
+        <div class="footer-person">
+          <div class="footer-person-name">PolicyHub</div>
+          <div class="footer-person-role">Enterprise Policy Lifecycle Management</div>
+          <a href="https://neuralnexus.lk/policyhub" class="footer-linkedin" target="_blank">neuralnexus.lk/policyhub</a>
+        </div>
+        <div class="footer-person">
+          <div class="footer-person-name">SafeTrack</div>
+          <div class="footer-person-role">Real-Time Food Safety Operations</div>
+          <a href="https://neuralnexus.lk/safetrack" class="footer-linkedin" target="_blank">neuralnexus.lk/safetrack</a>
+        </div>
+        <div style="margin-top:8px;">
+          <div class="footer-col-title">Key Partner</div>
+          <div class="footer-person-name" style="font-size:13px; color:rgba(255,255,255,0.7);">Modul-Eight Consultancy</div>
+          <div class="footer-person-role">Dubai Aviation City, UAE</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">
+        &copy; 2026 Neuralnexus (Private) Limited. All rights reserved. Company Profile prepared for ADB procurement submission.
+      </div>
+      <div class="footer-bottom-right">
+        <a href="https://neuralnexus.lk" target="_blank">Website</a>
+        <a href="mailto:info@neuralnexus.lk">Contact</a>
+        <a href="https://neuralnexus.lk/policyhub" target="_blank">PolicyHub</a>
+        <a href="https://neuralnexus.lk/safetrack" target="_blank">SafeTrack</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
