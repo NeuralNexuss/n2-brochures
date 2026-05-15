@@ -780,6 +780,55 @@
             .facts-risk-row { grid-template-columns: 1fr; }
             .cta-subline { margin-left: 0; margin-right: 0; }
         }
+
+        /* ─── 150% Scale ─────────────────────────────────── */
+        html { font-size: 24px; }
+        :root {
+            --padding-h:   72px;
+            --radius-card: 36px;
+        }
+        h1 { font-size: clamp(42px, 6vw, 66px); }
+        h2 { font-size: clamp(30px, 4.2vw, 45px); }
+        .coral-rule { width: 84px; }
+        .proposal-header { height: 78px; }
+        .header-logo { height: 46px; }
+        .header-badge { padding: 6px 21px; }
+        .hero-section { padding: 66px var(--padding-h) 54px; }
+        .facts-section { padding: 78px var(--padding-h); }
+        .fact-stat-card { border-radius: 21px; padding: 36px 33px 30px; }
+        .fact-risk-card { border-radius: 21px; padding: 27px 30px; gap: 21px; }
+        .fact-risk-icon { width: 57px; height: 57px; min-width: 57px; border-radius: 15px; }
+        .stages-section { padding: 54px var(--padding-h); }
+        .stage-card { border-radius: 27px; }
+        .stage-badge { border-radius: 6px; padding: 2px 9px; }
+        .breach-section { padding: 66px var(--padding-h); }
+        .breach-section::before { top: -90px; right: -90px; width: 510px; height: 510px; }
+        .breach-text h2 { font-size: clamp(27px, 3.75vw, 39px); }
+        .breach-image-wrap { padding-right: 120px; padding-bottom: 45px; }
+        .breach-graph { border-radius: 24px; }
+        .breach-device-wrap { width: 172px; }
+        .lms-spotlight { padding: 66px var(--padding-h); }
+        .lms-text h2 { font-size: clamp(26px, 3.3vw, 36px); }
+        .lms-image-wrap { border-radius: 24px; }
+        .features-grid-section { padding: 66px var(--padding-h); }
+        .feature-card { border-radius: 27px; }
+        .feature-icon { width: 69px; height: 69px; }
+        .delivery-pricing-section { padding: 66px var(--padding-h); }
+        .timeline::before { left: 22px; top: 12px; bottom: 12px; }
+        .tl-dot-wrap { width: 45px; }
+        .tl-dot { width: 18px; height: 18px; }
+        .pricing-total-amount { font-size: clamp(48px, 6vw, 66px); }
+        .pricing-cover-icon { width: 39px; height: 39px; border-radius: 12px; }
+        .pricing-cover-icon svg { width: 19px; height: 19px; }
+        .cta-section { padding: 78px var(--padding-h); }
+        .cta-section::before { width: 1050px; height: 600px; }
+        .cta-headline { font-size: clamp(33px, 6vw, 54px); }
+        .cta-logo { height: 90px; }
+        .cta-buttons { gap: 18px; margin-bottom: 2.25rem; }
+        .btn-primary, .btn-secondary { padding: 19px 51px; font-size: 1.35rem; }
+        .proposal-footer { padding: 21px var(--padding-h); }
+        .footer-logo { height: 36px; }
+        @media (max-width: 768px) { :root { --padding-h: 30px; } }
     </style>
     <style media="print">
         @page {
