@@ -238,28 +238,14 @@
         }
         .stages-flow {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            position: relative;
-        }
-        .stages-flow::before {
-            content: '';
-            position: absolute;
-            top: 27px;
-            left: calc(10% + 14px);
-            right: calc(10% + 14px);
-            height: 1px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            opacity: 0.25;
-            z-index: 0;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.85rem;
         }
         .stage-card {
             background: white;
             border: 1px solid var(--border);
             border-radius: 18px;
             padding: 1.1rem 0.9rem;
-            margin: 0 5px;
-            position: relative;
-            z-index: 1;
         }
         .stage-number {
             font-size: 0.6rem;
@@ -776,9 +762,7 @@
 
         /* ─── Responsive ────────────────────────────────────────── */
         @media (max-width: 1024px) {
-            .stages-flow { grid-template-columns: repeat(3, 1fr); gap: 0.65rem; }
-            .stages-flow::before { display: none; }
-            .stage-card { margin: 0; }
+            .stages-flow { grid-template-columns: repeat(2, 1fr); }
             .features-grid { grid-template-columns: repeat(3, 1fr); }
         }
         @media (max-width: 900px) {
@@ -827,7 +811,7 @@
     <section id="hero" class="hero-section" aria-label="Introduction">
         <span class="eyebrow">Food Safety Compliance &nbsp;&middot;&nbsp; HACCP Standards &nbsp;&middot;&nbsp; Built for Commercial Kitchens</span>
         <h1>Your Kitchen Shouldn&rsquo;t Rely on<br><span class="text-gradient">Who&rsquo;s Standing Watch</span> Tonight</h1>
-        <p class="hero-subline">In a high-volume kitchen, food safety lives in experienced heads &mdash; and that&rsquo;s a single point of failure. SafeTrack digitises your HACCP monitoring &mdash; every receiving check, every temperature log, every corrective action &mdash; running reliably without your head chef needing to be everywhere at once.</p>
+        <p class="hero-subline">In a commercial kitchen, the monitoring already happens &mdash; chefs are probing, checking, doing the work. The failure is in the gap between that act and the record. SafeTrack closes that gap: every temperature reading captured at the moment it&rsquo;s taken, every cooling batch tracked across the shift, every corrective action logged at the moment it&rsquo;s needed &mdash; without anyone stopping to fill in a form.</p>
         <div class="coral-rule" aria-hidden="true"></div>
     </section>
 
@@ -902,55 +886,91 @@
 
     <section id="monitoring-stages" class="stages-section" aria-labelledby="stages-heading">
         <div class="section-header">
-            <span class="eyebrow">Digital Temperature Monitoring</span>
-            <h2 id="stages-heading">Five Stages. <span class="text-gradient">Every Check Logged.</span></h2>
-            <p class="section-subtext">SafeTrack covers the full journey &mdash; from the morning delivery to the last plate leaving the pass &mdash; every CCP captured, timestamped, and audit-ready.</p>
+            <span class="eyebrow">Complete Kitchen Coverage</span>
+            <h2 id="stages-heading">The Whole Kitchen. <span class="text-gradient">Every Check Logged.</span></h2>
+            <p class="section-subtext">SafeTrack monitors every area of a commercial kitchen &mdash; from the delivery bay to the closing clean-down. Every CCP reading, every PRP checklist, timestamped, signed off, and audit-ready.</p>
         </div>
         <div class="stages-flow">
             <div class="stage-card">
-                <div class="stage-number">Stage 01</div>
-                <div class="stage-name">Receiving</div>
+                <div class="stage-number">Goods In</div>
+                <div class="stage-name">Receiving &amp; Intake</div>
                 <ul class="stage-logs">
-                    <li>Delivery vehicle temp checked on arrival</li>
-                    <li>Probe reading per incoming batch</li>
-                    <li>Supplier name and reject/accept logged</li>
+                    <li>Delivery vehicle temp logged on arrival</li>
+                    <li>Probe reading per batch &mdash; accept or reject recorded</li>
+                    <li>Dry store: ambient temp, pest, FIFO and date labelling</li>
+                    <li>Supplier documentation and approved supplier check</li>
                 </ul>
             </div>
             <div class="stage-card">
-                <div class="stage-number">Stage 02</div>
-                <div class="stage-name">Cold Storage</div>
+                <div class="stage-number">Storage</div>
+                <div class="stage-name">Cold Chain Storage</div>
                 <ul class="stage-logs">
-                    <li>Cool room monitored continuously, 24/7</li>
-                    <li>Alert the moment the reading starts climbing</li>
-                    <li>Full overnight history, always on record</li>
+                    <li>Chillers and freezers monitored continuously, 24/7</li>
+                    <li>Instant alert the moment ambient reading climbs</li>
+                    <li>Full overnight history, no manual check gaps</li>
+                    <li>Walk-in, reach-in, and under-counter units covered</li>
                 </ul>
-                <div class="stage-badge">Sensor Monitored</div>
+                <div class="stage-badge">IoT Sensor</div>
             </div>
             <div class="stage-card">
-                <div class="stage-number">Stage 03</div>
+                <div class="stage-number">Pre-Heat</div>
                 <div class="stage-name">Preparation</div>
                 <ul class="stage-logs">
-                    <li>Batch-by-batch time tracking for cold prep</li>
-                    <li>Alert when a batch has been out too long</li>
-                    <li>High-risk items flagged: dairy, egg, mince</li>
+                    <li>Thaw method and final probe before prep begins</li>
+                    <li>Produce: sanitiser name, concentration, contact time</li>
+                    <li>Protein prep cold chain time tracked per batch</li>
+                    <li>Allergen segregation and equipment colour coding</li>
                 </ul>
             </div>
             <div class="stage-card">
-                <div class="stage-number">Stage 04</div>
+                <div class="stage-number">Kill Step</div>
                 <div class="stage-name">Cooking</div>
                 <ul class="stage-logs">
-                    <li>Probe reading logged per dish or batch</li>
-                    <li>High-risk items: pies, mince, pastry, sauces</li>
-                    <li>Documented exceptions for medium-rare orders</li>
+                    <li>Core probe per batch for every high-risk item</li>
+                    <li>Critical limits by protein: poultry 75&deg;C, mince 71&deg;C, beef 63&deg;C</li>
+                    <li>Oil quality checks logged for fryer operations</li>
+                    <li>Documented exceptions: medium-rare, pink duck, soft-boiled</li>
                 </ul>
             </div>
             <div class="stage-card">
-                <div class="stage-number">Stage 05</div>
-                <div class="stage-name">Hot Holding &amp; Service</div>
+                <div class="stage-number">Batch Thread</div>
+                <div class="stage-name">Cooling</div>
                 <ul class="stage-logs">
-                    <li>Holding temp checked before service opens</li>
-                    <li>Re-check log during extended service runs</li>
-                    <li>Final probe before it leaves the pass</li>
+                    <li>Thread opened at T=0 and stays live until the batch is safe</li>
+                    <li>Mid-cool and final probe prompted automatically</li>
+                    <li>Thread transfers to incoming staff at shift handover</li>
+                    <li>Breach triggers guided discard or blast chill workflow</li>
+                </ul>
+                <div class="stage-badge">Thread Tracked</div>
+            </div>
+            <div class="stage-card">
+                <div class="stage-number">Service</div>
+                <div class="stage-name">Holding &amp; Service</div>
+                <ul class="stage-logs">
+                    <li>Hot and cold holding confirmed before service opens</li>
+                    <li>Re-checks every 2&ndash;4 hours during extended service runs</li>
+                    <li>Reheat to 75&deg;C or discard if temperature drops</li>
+                    <li>Allergen flags verified at the pass before dishes leave</li>
+                </ul>
+            </div>
+            <div class="stage-card">
+                <div class="stage-number">Sanitation</div>
+                <div class="stage-name">Cleaning &amp; Sanitation</div>
+                <ul class="stage-logs">
+                    <li>Dishwasher wash and rinse temps logged per cycle</li>
+                    <li>Sanitiser concentration and chemical dilution records</li>
+                    <li>Equipment cleaning schedules tracked and signed off</li>
+                    <li>Chemical storage: separation and MSDS accessible</li>
+                </ul>
+            </div>
+            <div class="stage-card">
+                <div class="stage-number">Staff</div>
+                <div class="stage-name">People &amp; Hygiene</div>
+                <ul class="stage-logs">
+                    <li>PPE check and health declaration at each shift start</li>
+                    <li>Handwashing compliance logged per shift</li>
+                    <li>Training assessments linked to each staff profile</li>
+                    <li>Staff assessed and certified before first monitoring task</li>
                 </ul>
             </div>
         </div>
@@ -1096,24 +1116,25 @@
             <div class="feature-card">
                 <div class="feature-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-                        <rect x="9" y="2" width="6" height="4" rx="1"/>
-                        <path d="M3 6h18v16H3z"/>
-                        <line x1="8" y1="12" x2="16" y2="12"/>
-                        <line x1="8" y1="16" x2="13" y2="16"/>
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
                     </svg>
                 </div>
-                <div class="feature-title">Dynamic Form Builder</div>
-                <p class="feature-desc">Custom checklists and forms with conditional logic, validation rules, and digital sign-off &mdash; built without code.</p>
+                <div class="feature-title">Cooling Thread Manager</div>
+                <p class="feature-desc">Cooling batches tracked as persistent threads &mdash; T=0 to safe temp, mid-cool prompts automated, ownership transfers at shift handover.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-                        <polyline points="9 11 12 14 22 4"/>
-                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                        <rect x="3" y="4" width="18" height="18" rx="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                        <line x1="8" y1="15" x2="16" y2="15"/>
                     </svg>
                 </div>
-                <div class="feature-title">Approval Workflows</div>
-                <p class="feature-desc">Multi-step sign-offs with role-based routing &mdash; corrective actions, receiving checks, and cleaning sign-offs all tracked.</p>
+                <div class="feature-title">Scheduled Monitoring Rounds</div>
+                <p class="feature-desc">Push reminders at shift time, routed to the right person by role and section &mdash; escalation triggered automatically on missed checks.</p>
             </div>
         </div>
     </section>
