@@ -24,7 +24,7 @@
             --radius-pill:   980px;
             --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
             --container-px:  clamp(20px, 5vw, 80px);
-            --section-py:    clamp(80px, 12vw, 140px);
+            --section-py:    clamp(64px, 8vw, 104px);
         }
 
         /* ─── Reset ─────────────────────────────────────── */
@@ -101,6 +101,15 @@
         section {
             padding: var(--section-py) 0;
         }
+        section + section {
+            padding-top: clamp(56px, 7vw, 92px);
+        }
+        #problem {
+            padding-bottom: clamp(44px, 5vw, 72px);
+        }
+        #solution {
+            padding-top: clamp(48px, 6vw, 80px);
+        }
         section.alt { background: var(--bg-alt); }
 
         /* ─── Scroll-Reveal Animation ────────────────────── */
@@ -155,6 +164,9 @@
             color: var(--text-secondary);
             max-width: 700px;
             margin-bottom: 3.5rem;
+        }
+        #solution .lead {
+            margin-bottom: 2.25rem;
         }
 
         /* ─── Cards (shared) ─────────────────────────────── */
@@ -526,7 +538,6 @@
             letter-spacing: -0.025em;
             line-height: 1.1;
             margin-bottom: 1rem;
-            white-space: nowrap;
         }
         .cta-sub {
             font-size: 1.05rem;
@@ -583,66 +594,228 @@
             color: var(--text-muted);
         }
 
+        /* ─── Desktop Scale ──────────────────────────────── */
+        @media (min-width: 1180px) {
+            html { font-size: 112%; }
+            :root {
+                --radius-card:  28px;
+                --section-py:   clamp(76px, 8vw, 112px);
+                --container-px: clamp(32px, 5vw, 88px);
+            }
+            h1  { font-size: clamp(58px, 7.3vw, 102px); }
+            h2  { font-size: clamp(44px, 5.2vw, 72px); }
+            .lead { font-size: clamp(20px, 1.75vw, 24px); }
+            nav { height: 82px; }
+            .nav-inner { max-width: min(82vw, 1500px); }
+            .nav-logo-img { height: 40px; }
+            .container { max-width: min(82vw, 1500px); }
+            .stat-number { white-space: nowrap; font-size: clamp(2rem, 2.8vw, 2.9rem); }
+            .cta-inner { max-width: 920px; text-align: center; }
+            .pillar-icon { width: 58px; height: 58px; border-radius: 18px; }
+            .consequence-item { border-radius: 20px; }
+            .img-frame { border-radius: 22px; }
+            .browser-mockup { border-radius: 20px; }
+            .usp-visual::before { inset: -30px; }
+            .sensor-badge { bottom: 64px; right: -30px; }
+            .sensor-badge img { width: 136px; height: 136px; }
+            .bdot { width: 13px; height: 13px; }
+            .cta-section { padding: clamp(76px, 8vw, 112px) 0; }
+            .cta-logo { height: 96px; }
+            .cta-btn { padding: 17px 46px; font-size: 1.18rem; }
+            #problem { padding-bottom: 32px; }
+            #solution { padding-top: 40px; }
+            #solution h2 { margin-bottom: 1.1rem; }
+            #solution .lead { margin-bottom: 2rem; }
+        }
+
         /* ─── Responsive ─────────────────────────────────── */
         @media (max-width: 1024px) {
+            :root {
+                --radius-card: 20px;
+                --container-px: clamp(24px, 5vw, 48px);
+                --section-py: clamp(64px, 8vw, 88px);
+            }
+            .container { max-width: 920px; }
+            .stats-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .stat-card { padding: 1.65rem; }
+            .stat-number { white-space: nowrap; font-size: clamp(1.9rem, 4vw, 2.5rem); }
             .consequence-grid { grid-template-columns: repeat(2, 1fr); }
+            .usp-row { gap: 3rem; }
         }
 
         @media (max-width: 880px) {
             .solution-pillars { grid-template-columns: 1fr; }
-            .usp-row { grid-template-columns: 1fr; gap: 2.5rem; }
+            .usp-row { grid-template-columns: 1fr; gap: 2rem; }
             .usp-row.flip .usp-text,
             .usp-row.flip .usp-visual { order: initial; }
-            .usps-stack { gap: 5rem; }
-            .sensor-badge { right: 0; bottom: -8px; }
-            .sensor-badge img { width: 85px; height: 85px; }
+            .usps-stack { gap: 4.25rem; margin-top: 3rem; }
+            .sensor-badge { right: 8px; bottom: 24px; }
+            .sensor-badge img { width: 82px; height: 82px; }
         }
 
         @media (max-width: 768px) {
-            .stats-grid { grid-template-columns: 1fr; }
-            .consequence-grid { grid-template-columns: 1fr 1fr; }
+            :root {
+                --radius-card: 18px;
+                --container-px: clamp(22px, 6vw, 34px);
+                --section-py: 58px;
+            }
+            section + section {
+                padding-top: 56px;
+            }
+            #problem { padding-bottom: 40px; }
+            #solution { padding-top: 44px; }
+            nav { height: 64px; }
+            .nav-inner {
+                max-width: none;
+                gap: 1rem;
+            }
+            .nav-wordmark {
+                font-size: 0.66rem;
+                letter-spacing: 0.14em;
+                line-height: 1.8;
+                max-width: 8.5rem;
+            }
+            .nav-logo-img { height: 34px; max-width: 48%; object-fit: contain; }
+            h1 {
+                font-size: clamp(2.75rem, 13vw, 4rem);
+                line-height: 1.04;
+                letter-spacing: -0.02em;
+                overflow-wrap: anywhere;
+            }
+            h2 {
+                font-size: clamp(2.15rem, 10vw, 3rem);
+                line-height: 1.08;
+            }
+            .lead {
+                font-size: 1.08rem;
+                line-height: 1.55;
+                margin-bottom: 2.25rem;
+            }
+            .section-label {
+                font-size: 0.68rem;
+                margin-bottom: 0.85rem;
+            }
+            .stats-grid,
+            .consequence-grid,
             .target-market { grid-template-columns: 1fr; }
-            nav { height: 58px; }
-            .nav-wordmark { font-size: 0.7rem; }
+            .card,
+            .stat-card,
+            .pillar-card,
+            .market-card,
+            .consequences {
+                padding: 1.35rem;
+            }
+            .stats-grid,
+            .solution-pillars,
+            .target-market {
+                gap: 0.85rem;
+            }
+            .consequences h3 {
+                margin-bottom: 1rem;
+            }
+            .consequence-grid {
+                gap: 0.75rem;
+            }
+            .consequence-item {
+                padding: 1rem;
+                border-radius: 14px;
+            }
+            .pillar-features,
+            .usp-features {
+                gap: 0.55rem;
+            }
+            .pillar-icon {
+                width: 48px;
+                height: 48px;
+                border-radius: 14px;
+                margin-bottom: 1rem;
+            }
+            .usp-text h3 {
+                font-size: clamp(1.65rem, 8vw, 2.25rem);
+                margin-bottom: 1.2rem;
+            }
+            .usp-feature {
+                padding: 0.85rem 0.95rem;
+                border-radius: 11px;
+            }
+            .usp-result {
+                padding: 0.95rem 1rem;
+                font-size: 0.9rem;
+            }
+            .usp-visual::before {
+                inset: -14px;
+                border-radius: 24px;
+            }
+            .img-frame,
+            .browser-mockup {
+                border-radius: 15px;
+            }
+            .img-disclaimer {
+                font-size: 0.58rem;
+                margin-top: 0.85rem;
+            }
+            .cta-section {
+                padding: 72px 0;
+            }
+            .cta-logo {
+                height: 76px;
+                margin-bottom: 1.8rem;
+            }
+            .cta-inner h3 {
+                font-size: clamp(2rem, 10vw, 2.75rem);
+                line-height: 1.12;
+            }
+            .cta-sub,
+            .cta-contact {
+                font-size: 0.98rem;
+                line-height: 1.55;
+            }
+            .cta-contact {
+                margin-bottom: 1.8rem;
+            }
+            .cta-btn {
+                width: 100%;
+                max-width: 280px;
+                padding: 14px 24px;
+            }
         }
 
         @media (max-width: 480px) {
-            .consequence-grid { grid-template-columns: 1fr; }
-            .stats-grid { grid-template-columns: 1fr; }
-            h1 { font-size: 2.4rem; }
-            h2 { font-size: 1.9rem; }
-            .cta-inner h3 { font-size: 1.85rem; }
-            .cta-section { padding: 5rem 0; }
+            :root {
+                --container-px: 24px;
+                --section-py: 52px;
+            }
+            section + section {
+                padding-top: 50px;
+            }
+            #problem { padding-bottom: 36px; }
+            #solution { padding-top: 40px; }
+            nav { height: 60px; }
+            .nav-wordmark { font-size: 0.58rem; }
+            .nav-logo-img { height: 30px; }
+            h1 { font-size: clamp(2.55rem, 12.5vw, 3.25rem); }
+            h2 { font-size: clamp(2rem, 9.5vw, 2.55rem); }
+            .lead {
+                font-size: 1rem;
+                line-height: 1.52;
+            }
+            .stat-card,
+            .pillar-card,
+            .market-card,
+            .consequences {
+                padding: 1.15rem;
+            }
+            .stat-number { font-size: 2.15rem; }
+            .consequence-cost { font-size: 0.95rem; }
+            .usps-stack { gap: 3.5rem; }
+            .sensor-badge {
+                right: 6px;
+                bottom: 34px;
+            }
+            .sensor-badge img { width: 68px; height: 68px; }
+            .cta-section { padding: 62px 0; }
+            footer { padding: 1.75rem 0; }
         }
-
-        /* ─── 135% Scale ─────────────────────────────────── */
-        html { font-size: 135%; }
-        :root {
-            --radius-card:  32px;
-            --section-py:   clamp(108px, 16.2vw, 189px);
-            --container-px: clamp(27px, 6.75vw, 108px);
-        }
-        h1  { font-size: clamp(57px, 9.45vw, 108px); }
-        h2  { font-size: clamp(46px, 6.75vw, 76px); }
-        .lead { font-size: clamp(23px, 2.7vw, 28px); }
-        nav { height: 92px; }
-        .nav-inner { max-width: min(80vw, 1500px); }
-        .nav-logo-img { height: 43px; }
-        .container { max-width: min(80vw, 1500px); }
-        .stat-number { white-space: nowrap; font-size: clamp(1.8rem, 3.2vw, 2.6rem); }
-        .cta-inner { max-width: 920px; text-align: center; }
-        .pillar-icon { width: 62px; height: 62px; border-radius: 19px; }
-        .consequence-item { border-radius: 22px; }
-        .img-frame { border-radius: 24px; }
-        .browser-mockup { border-radius: 22px; }
-        .usp-visual::before { inset: -32px; }
-        .sensor-badge { bottom: 81px; right: -38px; }
-        .sensor-badge img { width: 162px; height: 162px; }
-        .bdot { width: 15px; height: 15px; }
-        .cta-section { padding: clamp(108px, 13.5vw, 189px) 0; }
-        .cta-logo { height: 108px; }
-        .cta-btn { padding: 19px 51px; font-size: 1.35rem; }
-        @media (max-width: 768px) { nav { height: 78px; } }
     </style>
 </head>
 <body>
@@ -667,9 +840,8 @@
                 The Hidden Cost of <span class="text-gradient">Manual HACCP</span> Compliance
             </h1>
             <p class="lead reveal d2">
-                Despite critical importance, HACCP compliance remains manual and fragmented.
-                Monitoring data lives across disconnected systems. Documentation is retrospective.
-                Real-time visibility is limited. Compliance is reactive, not proactive.
+                HACCP compliance is still too manual: monitoring data sits in disconnected systems,
+                documentation is built after the fact, and visibility arrives too late to prevent issues.
             </p>
 
             <div class="stats-grid">
@@ -722,9 +894,8 @@
                 Real-Time HACCP Compliance <span class="text-gradient">Built for Operations</span>
             </h2>
             <p class="lead reveal d2">
-                A purpose-built HACCP compliance system that transforms compliance from a reactive,
-                manual function into real-time, automated, and auditable operations. Not a generic
-                compliance tool — a HACCP-specific platform embedded into daily workflows.
+                A HACCP-specific platform that turns compliance into real-time, automated,
+                auditable operations embedded directly into daily workflows.
             </p>
 
             <div class="solution-pillars">
@@ -803,10 +974,10 @@
                         <span class="usp-tag">01 / IoT-Powered Monitoring</span>
                         <h3>Sensors Monitor. The Platform Responds. Automatically.</h3>
                         <div class="usp-features">
-                            <div class="usp-feature">Connect temperature, humidity, and pressure sensors — configurable polling intervals (5 min, 15 min, 1 hour), 24/7</div>
-                            <div class="usp-feature">Critical limits checked on every reading — breaches detected the moment they happen</div>
-                            <div class="usp-feature">Corrective action forms auto-created and routed to your workflow — no human trigger needed</div>
-                            <div class="usp-feature">24-hour trend graphs with limit lines — see exactly when and where readings drifted</div>
+                            <div class="usp-feature">Connect temperature, humidity, and pressure sensors with configurable 24/7 polling</div>
+                            <div class="usp-feature">Check critical limits on every reading and detect breaches as they happen</div>
+                            <div class="usp-feature">Auto-create corrective actions and route them to the right workflow</div>
+                            <div class="usp-feature">Review 24-hour trend graphs with limit lines for fast root-cause checks</div>
                         </div>
                         <div class="usp-result">From sensor reading to corrective action — zero manual steps</div>
                     </div>
