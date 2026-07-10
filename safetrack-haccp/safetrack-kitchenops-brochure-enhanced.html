@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SafeTrack KitchenOps brochure — probe-connected HACCP monitoring, live kitchen mobile capture, kitchen coverage, and real-time management visibility.">
+  <meta name="author" content="NeuralNexus">
+  <title>SafeTrack KitchenOps — Probe-Connected HACCP Monitoring</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary:#FF6B6B;
+      --primary-dark:#F05555;
+      --secondary:#007AFF;
+      --ink:#171717;
+      --text:#525252;
+      --muted:#9B9B9B;
+      --line:#E5E5E5;
+      --bg:#FFFFFF;
+      --soft:#F7F8FA;
+      --dark:#080808;
+      --radius:20px;
+      --radius-sm:12px;
+      --px:clamp(22px,5vw,76px);
+      --section:clamp(58px,7vw,94px);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{overflow-x:hidden;scroll-behavior:smooth;font-size:125%}
+    body{font-family:Inter,system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    img{display:block;max-width:100%;height:auto}
+    a{color:inherit}
+    .proposal-header{height:72px;padding:0 var(--px);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);background:rgba(255,255,255,.88);backdrop-filter:blur(24px);position:sticky;top:0;z-index:30}
+    .header-logo{height:42px;width:auto;filter:brightness(0);opacity:.75}
+    .header-badge{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--primary);background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.2);border-radius:999px;padding:4px 14px}
+    .header-site{font-size:.78rem;color:var(--muted);font-weight:600}
+    .eyebrow{display:block;font-size:17.85px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--primary);margin-bottom:.75rem}
+    .text-gradient{background:linear-gradient(135deg,var(--primary) 0%,#C35B8C 48%,var(--secondary) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .gradient-rule{width:56px;height:3px;border-radius:2px;background:linear-gradient(90deg,var(--primary),var(--secondary));margin-bottom:1.4rem}
+    h1{font-size:clamp(58px,7.1vw,102px);line-height:1.05;letter-spacing:-0.025em;font-weight:600;margin-bottom:25.5px;max-width:none}
+    h2{font-size:clamp(31.5px,4.2vw,43.5px);line-height:1.2;letter-spacing:-0.02em;font-weight:700;margin-bottom:.9rem;max-width:none}
+    h3{font-size:1.05rem;line-height:1.25;font-weight:700;letter-spacing:-0.01em;margin-bottom:.45rem}
+    p{color:var(--text)}
+    .lead{font-size:clamp(1.05rem,1.6vw,1.35rem);line-height:1.65;max-width:760px;color:var(--text)}
+    .section{padding:var(--section) var(--px);border-top:1px solid var(--line)}
+    .section.alt{background:var(--soft)}
+    .section-header{margin-bottom:2rem}
+    .hero{padding:clamp(70px,9vw,126px) var(--px) clamp(50px,7vw,86px);background:radial-gradient(ellipse at 78% 18%,rgba(255,107,107,.08),transparent 42%),#fff}
+    .hero-sub{font-size:25.5px;line-height:1.7;max-width:760px;margin-bottom:2rem;color:var(--text)}
+    .hero-meta{display:flex;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:1.2rem;max-width:900px}
+    .meta-pill{font-size:.78rem;font-weight:700;color:var(--text);background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:7px 13px}
+    .belief-block{background:var(--dark);border-radius:var(--radius);padding:clamp(24px,4vw,42px);margin:2rem 0;color:#fff;position:relative;overflow:hidden}
+    .belief-block::after{content:"";position:absolute;right:-110px;top:-140px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,107,.22),transparent 65%)}
+    .belief-quote{position:relative;z-index:1;font-size:clamp(24px,3vw,30px);font-weight:600;line-height:1.45;letter-spacing:-0.015em;max-width:950px}
+    .belief-source{position:relative;z-index:1;margin-top:1rem;font-size:.86rem;color:rgba(255,255,255,.48)}
+    .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+    .compare-card{border:1px solid var(--line);border-radius:var(--radius-sm);padding:1.25rem;background:#fff}
+    .compare-card.after{background:rgba(255,107,107,.055);border-color:rgba(255,107,107,.22)}
+    .compare-label{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.9rem}
+    .after .compare-label{color:var(--primary)}
+    .compare-steps{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+    .compare-steps li{display:flex;gap:.65rem;align-items:flex-start;font-size:.9rem;color:var(--text);line-height:1.45}
+    .step-num{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:0 0 auto;font-size:.68rem;font-weight:800;background:#E8E8E8;color:#777;margin-top:1px}
+    .after .step-num{background:var(--primary);color:#fff}
+    .compare-result{display:flex;gap:.8rem;align-items:center;border-top:1px solid var(--line);margin-top:1rem;padding-top:1rem}
+    .result-time{font-size:1.4rem;font-weight:800;line-height:1;color:var(--muted);letter-spacing:-0.03em}
+    .after .result-time{color:var(--primary)}
+    .result-note{font-size:.82rem;color:var(--text);line-height:1.4}
+    .screens-strip{margin-top:2.6rem}
+    .screens-strip-label,.sub-label{font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:1.1rem}
+    .phone-row{display:flex;gap:18px;align-items:flex-start;justify-content:center;overflow-x:auto;padding:4px 2px 16px;scroll-snap-type:x proximity}
+    .phone-unit{flex:0 0 clamp(230px,25vw,330px);scroll-snap-align:center}
+    .screens-strip.sm .phone-unit{flex-basis:clamp(220px,22vw,300px)}
+    .phone-frame{background:#1C1C1E;border-radius:28px;padding:8px 6px 12px;box-shadow:0 24px 48px -12px rgba(0,0,0,.28),inset 0 0 0 1px rgba(255,255,255,.07)}
+    .phone-notch{width:40px;height:7px;background:#1C1C1E;border-radius:0 0 5px 5px;margin:0 auto 5px}
+    .phone-screen{border-radius:18px;overflow:hidden;background:#F2F2F7}
+    .phone-cap{text-align:center;margin-top:.8rem;font-size:.88rem;font-weight:750;color:var(--ink);line-height:1.35}
+    .phone-cap-sub{display:block;margin-top:.2rem;font-size:.76rem;font-weight:450;color:var(--muted)}
+    .caps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.3rem}
+    .cap-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:1.35rem;transition:transform .2s,box-shadow .2s,border-color .2s}
+    .cap-card:hover{transform:translateY(-3px);box-shadow:0 18px 36px -16px rgba(0,0,0,.18);border-color:rgba(255,107,107,.34)}
+    .cap-num{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--primary);margin-bottom:.55rem}
+    .cap-body{font-size:.9rem;line-height:1.62;color:var(--text)}
+    .coverage-intro{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:2rem;align-items:start}
+    .coverage-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:1.4rem}
+    .scope-tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1rem}
+    .scope-tag{font-size:.82rem;color:var(--text);background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:.35rem .7rem;line-height:1.35}
+    .map-wrap{margin-top:2rem;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff}
+    .map-flow-bar{background:var(--dark);display:flex;justify-content:center;flex-wrap:wrap;gap:.25rem;padding:.85rem 1rem}
+    .map-stat{font-size:.78rem;font-weight:700;color:rgba(255,255,255,.76);padding:0 .7rem}.map-stat strong{color:#fff}.map-stat-div{color:rgba(255,255,255,.22)}
+    .kmap-body-wrap{padding:14px;display:flex;flex-direction:column;gap:10px}
+    .kzone-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .kzone{border-radius:14px;padding:1rem;border:1.5px solid var(--line)}
+    .coral-zone{background:rgba(255,107,107,.075);border-color:rgba(255,107,107,.55)}
+    .blue-zone{background:rgba(0,122,255,.07);border-color:rgba(0,122,255,.45)}
+    .prep-zone{background:rgba(255,107,107,.035);border-style:dashed;border-color:rgba(255,107,107,.45)}
+    .strong-zone{background:rgba(255,107,107,.11);border:2px solid rgba(255,107,107,.7)}
+    .kzone-head{display:flex;align-items:center;gap:.65rem;margin-bottom:.75rem}
+    .kzone-num{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;background:var(--primary);font-size:.8rem;font-weight:800;flex:0 0 auto}
+    .kzone-title{font-size:1.12rem;font-weight:800;color:var(--ink)}
+    .kzone-badges{display:flex;gap:.35rem;flex-wrap:wrap;margin-left:auto}.kbadge{font-size:.7rem;font-weight:800;border-radius:999px;padding:.15rem .55rem;background:rgba(0,0,0,.05);color:var(--text);border:1px solid rgba(0,0,0,.08)}.kbadge.coral{color:var(--primary);background:rgba(255,107,107,.12);border-color:rgba(255,107,107,.28)}.kbadge.blue{color:var(--secondary);background:rgba(0,122,255,.1);border-color:rgba(0,122,255,.25)}
+    .kzone-captures{display:flex;flex-wrap:wrap;gap:.4rem}.capture-tag{font-size:.82rem;color:var(--text);background:rgba(255,255,255,.72);border:1px solid var(--line);border-radius:7px;padding:.25rem .55rem}.kzone-note{font-size:.82rem;color:var(--muted);font-style:italic;margin-top:.6rem}.kzone-service{text-align:center;font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#C6C6C6;border-top:1px solid #F0F0F0;padding:.65rem 0 .25rem}
+    .events-card{margin-top:1rem;border:1px solid rgba(255,107,107,.2);border-radius:var(--radius-sm);overflow:hidden;background:#fff}.events-head{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;background:rgba(255,107,107,.06);border-bottom:1px solid rgba(255,107,107,.15);padding:.8rem 1rem}.events-tag{font-size:.57rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--primary);background:rgba(255,107,107,.12);border:1px solid rgba(255,107,107,.25);border-radius:999px;padding:.2rem .65rem}.events-headline{font-weight:700;color:var(--ink)}.events-body{padding:1rem;font-size:.92rem;color:var(--text);line-height:1.65}
+    .mgmt-grid{display:grid;grid-template-columns:minmax(280px,.8fr) minmax(0,1.4fr);gap:2rem;align-items:start;margin-top:2rem}.dash-list{list-style:none;display:flex;flex-direction:column;gap:.65rem}.dash-list li{position:relative;padding-left:1rem;color:var(--text);font-size:.95rem;line-height:1.5}.dash-list li::before{content:"";position:absolute;left:0;top:.62rem;width:5px;height:5px;border-radius:50%;background:var(--primary)}.dash-list strong{color:var(--ink)}
+    .browser-frame{border:1px solid #E0E0E0;border-radius:14px;overflow:hidden;box-shadow:0 24px 56px -20px rgba(0,0,0,.26);background:#fff}.browser-bar{background:#F0F0F0;border-bottom:1px solid #DCDCDC;padding:10px 13px;display:flex;gap:7px}.browser-dot{width:11px;height:11px;border-radius:50%}.browser-dot:nth-child(1){background:#FF5F57}.browser-dot:nth-child(2){background:#FEBC2E}.browser-dot:nth-child(3){background:#28C840}
+    .fit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1.5rem}.fit-card{border:1px solid var(--line);border-radius:var(--radius-sm);background:#fff;padding:1rem}.fit-label{font-size:.95rem;font-weight:800;margin-bottom:.45rem;color:var(--ink)}.fit-desc{font-size:.86rem;color:var(--text);line-height:1.55}
+    .cta-section{background:#000;padding:clamp(64px,8vw,112px) var(--px);text-align:center;position:relative;overflow:hidden}.cta-section::before{content:"";position:absolute;inset:auto auto 50% 50%;width:900px;height:520px;transform:translate(-50%,50%);background:radial-gradient(ellipse,rgba(255,107,107,.14),transparent 58%);pointer-events:none}.cta-logo{height:82px;margin:0 auto 1.7rem;position:relative;z-index:1}.cta-headline{color:#fff;position:relative;z-index:1;margin-left:auto;margin-right:auto}.cta-subline{color:rgba(255,255,255,.56);font-size:1.06rem;max-width:620px;margin:0 auto 2rem;position:relative;z-index:1}.cta-buttons{display:flex;justify-content:center;gap:.8rem;flex-wrap:wrap;position:relative;z-index:1}.btn-primary,.btn-secondary{display:inline-block;text-decoration:none;border-radius:999px;padding:14px 30px;font-weight:750}.btn-primary{background:var(--primary);color:#fff}.btn-secondary{border:1px solid rgba(255,255,255,.25);color:#fff}.cta-contact{position:relative;z-index:1;margin-top:1.4rem;color:rgba(255,255,255,.4);font-size:.9rem}.cta-contact a{color:var(--secondary);text-decoration:none;font-weight:750}
+    .proposal-footer{background:#111;border-top:1px solid rgba(255,255,255,.08);padding:18px var(--px);display:flex;justify-content:space-between;align-items:center;gap:1rem}.footer-logo{height:30px;opacity:.38}.footer-copy,.footer-site{font-size:.78rem;color:rgba(255,255,255,.36)}
+    @media(max-width:1024px){.caps-grid,.fit-grid{grid-template-columns:1fr 1fr}.coverage-intro,.mgmt-grid{grid-template-columns:1fr}.phone-row{justify-content:flex-start}.kzone-row{grid-template-columns:1fr}}
+    @media(max-width:760px){.proposal-header{height:auto;min-height:64px;gap:.8rem}.header-site{display:none}.header-logo{height:34px}.header-badge{font-size:.58rem;padding:5px 10px}h1{font-size:clamp(2.6rem,13vw,4.2rem)}h2{font-size:clamp(2rem,9.5vw,3.1rem)}.section{padding:54px var(--px)}.hero{padding-top:62px}.compare-grid,.caps-grid,.fit-grid{grid-template-columns:1fr}.phone-unit,.screens-strip.sm .phone-unit{flex-basis:245px}.map-flow-bar{justify-content:flex-start}.map-stat-div{display:none}.kzone-head{align-items:flex-start}.kzone-badges{margin-left:0}.events-head{align-items:flex-start}.proposal-footer{flex-direction:column;text-align:center}.cta-buttons{flex-direction:column;align-items:center}.btn-primary,.btn-secondary{width:min(100%,300px)}}
+    @media print{.proposal-header{position:static}.section{padding:36px var(--px)}@page{margin:14mm}}
+  </style>
+</head>
+<body>
+<header class="proposal-header">
+  <img src="Logo_Horizontal_Full_White.png" alt="SafeTrack" class="header-logo">
+  <span class="header-badge">KitchenOps Brochure</span>
+  <span class="header-site">neuralnexus.lk</span>
+</header>
+<main>
+  <section class="hero" aria-label="Introduction">
+    <span class="eyebrow">SafeTrack KitchenOps</span>
+    <div class="gradient-rule" aria-hidden="true"></div>
+    <h1>Probe-connected HACCP for <span class="text-gradient">live kitchen operations</span></h1>
+    <p class="hero-sub">SafeTrack turns the food safety work already happening in the kitchen into a live, audit-ready record. Probe readings, cold storage signals, service checks, corrective actions, and management visibility all sit in one connected system.</p>
+    <div class="hero-meta" aria-label="Key outcomes">
+      <span class="meta-pill">Mobile-first kitchen capture</span>
+      <span class="meta-pill">IoT cold storage visibility</span>
+      <span class="meta-pill">Corrective action workflows</span>
+      <span class="meta-pill">Management dashboard</span>
+    </div>
+  </section>
+
+  <section class="section alt" id="about">
+    <div class="section-header">
+      <span class="eyebrow">About SafeTrack</span>
+      <h2>Not a digital clipboard.<br>A probe-connected monitoring system.</h2>
+      <p class="lead">Most HACCP tools simply replace a paper form with a mobile form. The interaction model does not change: staff still stop what they are doing to fill something in. SafeTrack is built on a different belief entirely.</p>
+    </div>
+    <div class="belief-block">
+      <div class="belief-quote">The monitoring already happens in every kitchen. The record should not require a separate act to create.</div>
+      <div class="belief-source">SafeTrack design principle</div>
+    </div>
+    <div class="compare-grid">
+      <div class="compare-card">
+        <div class="compare-label">Form-first monitoring</div>
+        <ul class="compare-steps">
+          <li><span class="step-num">1</span>Probe the food</li>
+          <li><span class="step-num">2</span>Put down the thermometer</li>
+          <li><span class="step-num">3</span>Open the right form</li>
+          <li><span class="step-num">4</span>Type the reading and context</li>
+          <li><span class="step-num">5</span>Submit before service moves on</li>
+        </ul>
+        <div class="compare-result">
+          <div class="result-time">Slow</div>
+          <div class="result-note">During service, the separate admin step is exactly where records break down.</div>
+        </div>
+      </div>
+      <div class="compare-card after">
+        <div class="compare-label">Probe-first SafeTrack</div>
+        <ul class="compare-steps">
+          <li><span class="step-num">1</span>Probe the food and SafeTrack detects the reading context</li>
+          <li><span class="step-num">2</span>One tap confirms the check and creates the record</li>
+        </ul>
+        <div class="compare-result">
+          <div class="result-time">Fast</div>
+          <div class="result-note">The evidence trail is created at the moment of the food safety check.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="mobile-capabilities">
+    <div class="section-header">
+      <span class="eyebrow">Mobile App + Capabilities</span>
+      <h2>The app in action during a real kitchen shift.</h2>
+      <p class="lead">SafeTrack gives chefs and stewards the shortest possible path from food safety check to compliant record: live task context, probe-first capture, and guided corrective response when a limit is breached.</p>
+    </div>
+    <div class="screens-strip">
+      <div class="screens-strip-label">Mobile workflow</div>
+      <div class="phone-row">
+        <div class="phone-unit"><div class="phone-frame"><div class="phone-notch"></div><div class="phone-screen"><img src="safetrack-mobile-home.png" alt="SafeTrack mobile shift overview"></div></div><div class="phone-cap">Shift overview<span class="phone-cap-sub">Pending checks, active cooling, probe-ready banner</span></div></div>
+        <div class="phone-unit"><div class="phone-frame"><div class="phone-notch"></div><div class="phone-screen"><img src="safetrack-log-record.png" alt="SafeTrack probe-first temperature recording screen"></div></div><div class="phone-cap">Probe-first capture<span class="phone-cap-sub">Reading auto-populated, one tap to confirm</span></div></div>
+        <div class="phone-unit"><div class="phone-frame"><div class="phone-notch"></div><div class="phone-screen"><img src="safetrack-breach-alert.png" alt="SafeTrack breach alert and corrective action screen"></div></div><div class="phone-cap">Corrective action<span class="phone-cap-sub">Breach detected, guided response opened</span></div></div>
+      </div>
+    </div>
+    <div class="sub-label">Core differentiators</div>
+    <div class="caps-grid">
+      <div class="cap-card"><div class="cap-num">Capability 01</div><h3>Probe-First Capture</h3><p class="cap-body">The thermometer probe wakes the interaction. The app listens, captures the reading, and asks for only the context needed to create a defensible record.</p></div>
+      <div class="cap-card"><div class="cap-num">Capability 02</div><h3>Cooling Thread Manager</h3><p class="cap-body">Cooling is treated as a persistent batch thread, not a one-time form. The record spans shift changes automatically from start to safe temperature.</p></div>
+      <div class="cap-card"><div class="cap-num">Capability 03</div><h3>Guided Corrective Response</h3><p class="cap-body">When a breach is detected, staff get a guided decision tree instead of a blank text field. The corrective record builds from the action they select.</p></div>
+    </div>
+  </section>
+
+  <section class="section alt" id="coverage">
+    <div class="coverage-intro">
+      <div class="section-header">
+        <span class="eyebrow">Kitchen Coverage</span>
+        <h2>Five stages. Every CCP from delivery to the pass.</h2>
+        <p class="lead">SafeTrack covers the full food journey across configured kitchens, outlets, stores, bars, and stewarding zones. Every critical control point is captured, timestamped, and audit-ready.</p>
+      </div>
+      <div class="coverage-card">
+        <h3>Coverage areas</h3>
+        <p>Each operating area can be configured individually so staff only see the checks relevant to their section, while management sees the full operation in one dashboard.</p>
+        <div class="scope-tags">
+          <span class="scope-tag">Main Stores</span><span class="scope-tag">Production kitchens</span><span class="scope-tag">Outlet kitchens</span><span class="scope-tag">Buffet service</span><span class="scope-tag">Bars</span><span class="scope-tag">Cold storage</span><span class="scope-tag">Stewarding</span><span class="scope-tag">Cleaning and PRP rounds</span>
+        </div>
+      </div>
+    </div>
+    <div class="map-wrap">
+      <div class="map-flow-bar"><span class="map-stat"><strong>5</strong> monitoring stages</span><span class="map-stat-div">·</span><span class="map-stat"><strong>CCP</strong> capture</span><span class="map-stat-div">·</span><span class="map-stat"><strong>IoT 24/7</strong> cold storage</span><span class="map-stat-div">·</span><span class="map-stat"><strong>Audit-ready</strong> evidence</span></div>
+      <div class="kmap-body-wrap">
+        <div class="kzone coral-zone"><div class="kzone-head"><div class="kzone-num">01</div><span class="kzone-title">Receiving</span><div class="kzone-badges"><span class="kbadge coral">CCP</span><span class="kbadge coral">Probe</span></div></div><div class="kzone-captures"><span class="capture-tag">Receiving temperature</span><span class="capture-tag">Supplier and docket</span><span class="capture-tag">Expiry date</span><span class="capture-tag">Batch / lot number</span><span class="capture-tag">Packaging condition</span><span class="capture-tag">Accept / reject decision</span></div></div>
+        <div class="kzone-row">
+          <div class="kzone blue-zone"><div class="kzone-head"><div class="kzone-num" style="background:#007AFF">02</div><span class="kzone-title">Cold Storage</span><div class="kzone-badges"><span class="kbadge blue">CCP</span><span class="kbadge blue">IoT 24/7</span></div></div><div class="kzone-captures"><span class="capture-tag">Continuous temperature</span><span class="capture-tag">Manual spot-check probe</span><span class="capture-tag">Breach alert and response</span><span class="capture-tag">Overnight history</span></div><div class="kzone-note">Walk-in chillers, freezers, counter chillers, and bar fridges can all feed the same record trail.</div></div>
+          <div class="kzone prep-zone"><div class="kzone-head"><div class="kzone-num">03</div><span class="kzone-title">Preparation</span><div class="kzone-badges"><span class="kbadge coral">CCP</span><span class="kbadge">PRP</span></div></div><div class="kzone-captures"><span class="capture-tag">Surface sanitisation</span><span class="capture-tag">Equipment cleaning</span><span class="capture-tag">Allergen separation</span><span class="capture-tag">Cold batch time and temp</span><span class="capture-tag">Hygiene log</span></div></div>
+        </div>
+        <div class="kzone strong-zone"><div class="kzone-head"><div class="kzone-num">04</div><span class="kzone-title">Cooking Line</span><div class="kzone-badges"><span class="kbadge coral">CCP</span><span class="kbadge coral">Peak probe zone</span></div></div><div class="kzone-captures"><span class="capture-tag">Core temperature</span><span class="capture-tag">Cook time and method</span><span class="capture-tag">Fryer oil quality</span><span class="capture-tag">Exception handling</span><span class="capture-tag">Pass / fail per batch</span></div></div>
+        <div class="kzone blue-zone"><div class="kzone-head"><div class="kzone-num" style="background:#007AFF">05</div><span class="kzone-title">Holding and Service</span><div class="kzone-badges"><span class="kbadge blue">CCP</span></div></div><div class="kzone-captures"><span class="capture-tag">Pre-service temperature</span><span class="capture-tag">Re-check cycles</span><span class="capture-tag">Cold display temperature</span><span class="capture-tag">Cooling batch thread</span><span class="capture-tag">Shift handover record</span></div></div>
+        <div class="kzone-service">Service · Dining</div>
+      </div>
+    </div>
+    <div class="events-card"><div class="events-head"><span class="events-tag">High-volume service</span><span class="events-headline">Built for kitchens where service does not pause for paperwork</span></div><div class="events-body">Buffet and outlet service can run hot holding, cold holding, preparation, cooling, cleaning, and handover checks at the same time. SafeTrack keeps each check live without adding administrative burden to chefs, stewards, or supervisors.</div></div>
+  </section>
+
+  <section class="section" id="live-kitchen">
+    <div class="section-header">
+      <span class="eyebrow">Live Kitchen Screens</span>
+      <h2>Every zone, feed, thread, and checklist visible where work happens.</h2>
+      <p class="lead">The live kitchen screens show staff exactly what needs attention now: zone completion, cold storage status, cooling progress, and PRP tasks by shift.</p>
+    </div>
+    <div class="screens-strip sm">
+      <div class="phone-row">
+        <div class="phone-unit"><div class="phone-frame"><div class="phone-notch"></div><div class="phone-screen"><img src="safetrack-ccp-repo.png" alt="SafeTrack kitchen zones overview"></div></div><div class="phone-cap">Kitchen zones<span class="phone-cap-sub">Stages and CCP completion at a glance</span></div></div>
+        <div class="phone-unit"><div class="phone-frame"><div class="phone-notch"></div><div class="phone-screen"><img src="safetrack-iot-log.png" alt="SafeTrack IoT cold storage live feed"></div></div><div class="phone-cap">IoT live feed<span class="phone-cap-sub">Cold storage monitored continuously</span></div></div>
+        <div class="phone-unit"><div class="phone-frame"><div class="phone-notch"></div><div class="phone-screen"><img src="safetrack-temp-threading.png" alt="SafeTrack cooling thread tracker"></div></div><div class="phone-cap">Cooling thread<span class="phone-cap-sub">Batch tracked across shift changes</span></div></div>
+        <div class="phone-unit"><div class="phone-frame"><div class="phone-notch"></div><div class="phone-screen"><img src="safetrack-checkbox-list.png" alt="SafeTrack PRP checklist"></div></div><div class="phone-cap">PRP checklist<span class="phone-cap-sub">Cleaning, hygiene, and storage checks</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="management-view">
+    <div class="section-header">
+      <span class="eyebrow">Management View</span>
+      <div class="gradient-rule" aria-hidden="true"></div>
+      <h2>Real-time visibility across kitchen operations. Audit-ready in seconds.</h2>
+      <p class="lead">While chefs and stewards capture on mobile, management gets a live web dashboard: compliance status, breach history, overdue work, staff performance, and the full audit trail in one place.</p>
+    </div>
+    <div class="mgmt-grid">
+      <div>
+        <div class="sub-label">What management sees</div>
+        <ul class="dash-list">
+          <li><strong>Live compliance rate</strong> updated as checks are completed</li>
+          <li><strong>Breach severity breakdown</strong> across critical, warning, and safe zones</li>
+          <li><strong>Overdue tasks</strong> flagged before they become audit risk</li>
+          <li><strong>Every CCP record</strong> searchable by date, kitchen, section, staff member, or CCP type</li>
+          <li><strong>Staff performance</strong> showing who logged what, when, and how fast</li>
+          <li><strong>Audit trail</strong> ready when an auditor asks for evidence</li>
+        </ul>
+      </div>
+      <div class="browser-frame"><div class="browser-bar"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div></div><img src="safetrack-dashboard.png" alt="SafeTrack management dashboard"></div>
+    </div>
+  </section>
+
+  <section class="section" id="fit">
+    <div class="section-header">
+      <span class="eyebrow">Operational Fit</span>
+      <h2>Built around your kitchen, not a generic template.</h2>
+    </div>
+    <div class="fit-grid">
+      <div class="fit-card"><div class="fit-label">Multi-zone coverage</div><p class="fit-desc">Each kitchen, outlet, bar, store, and stewarding zone can run its own configured checks while leadership sees the full picture.</p></div>
+      <div class="fit-card"><div class="fit-label">Buffet and service rhythm</div><p class="fit-desc">Hot holding, cold holding, re-checks, post-service cooling, and handover records stay active throughout service.</p></div>
+      <div class="fit-card"><div class="fit-label">Cold storage visibility</div><p class="fit-desc">Sensor-connected cold storage closes the overnight monitoring gap and opens corrective action as soon as a threshold is breached.</p></div>
+      <div class="fit-card"><div class="fit-label">Multilingual teams</div><p class="fit-desc">Checklist content can be configured for the food handler's preferred language, with simple visual cues where needed.</p></div>
+    </div>
+  </section>
+
+  <section id="cta" class="cta-section" aria-label="Schedule a SafeTrack demo">
+    <img src="Logo_Horizontal_Full_White.png" alt="SafeTrack" class="cta-logo">
+    <h2 class="cta-headline">See SafeTrack running in your kitchen</h2>
+    <p class="cta-subline">A focused demo built around your HACCP plan, kitchen zones, and operating rhythm.</p>
+    <div class="cta-buttons"><a href="mailto:info@neuralnexus.lk?subject=SafeTrack%20KitchenOps%20Demo" class="btn-primary">Schedule a Demo</a><a href="https://wa.me/94777880390" target="_blank" rel="noopener noreferrer" class="btn-secondary">WhatsApp Us</a></div>
+    <p class="cta-contact">info@neuralnexus.lk &nbsp;·&nbsp; WhatsApp <a href="https://wa.me/94777880390">+94 77 788 0390</a></p>
+  </section>
+</main>
+<footer class="proposal-footer">
+  <img src="Logo_Horizontal_Full_White.png" alt="SafeTrack" class="footer-logo">
+  <span class="footer-copy">SafeTrack — Digital Food Safety Compliance</span>
+  <span class="footer-site">neuralnexus.lk</span>
+</footer>
+</body>
+</html>

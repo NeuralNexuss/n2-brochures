@@ -1,0 +1,1761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SafeTrack food-safety compliance platform — probe-first mobile capture, HACCP digital monitoring, IoT sensors, automated alerting, and built-in staff training for commercial kitchens.">
+    <meta name="author" content="NeuralNexus">
+    <title>SafeTrack — Digital Food Safety Compliance for Commercial Kitchens</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ─── Design Tokens ─────────────────────────────────────── */
+        :root {
+            --primary:        #FF6B6B;
+            --secondary:      #007AFF;
+            --bg:             #FFFFFF;
+            --bg-alt:         #F9FAFB;
+            --text:           #171717;
+            --text-secondary: #525252;
+            --text-muted:     #A3A3A3;
+            --border:         #E5E5E5;
+            --radius-card:    24px;
+            --radius-pill:    980px;
+            --padding-h:      48px;
+        }
+
+        /* ─── Reset ─────────────────────────────────────────────── */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { overflow-x: hidden; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* ─── Accessibility ─────────────────────────────────────── */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* ─── Typography ─────────────────────────────────────────── */
+        .eyebrow {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 0.85rem;
+        }
+        h1 {
+            font-size: clamp(28px, 4vw, 44px);
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: -0.025em;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+        h2 {
+            font-size: clamp(20px, 2.8vw, 30px);
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+        h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: -0.01em;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF5252 45%, #007AFF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ─── Proposal Header ───────────────────────────────────── */
+        .proposal-header {
+            height: 52px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 var(--padding-h);
+            justify-content: space-between;
+        }
+        .header-logo {
+            height: 31px;
+            width: auto;
+            filter: brightness(0);
+            opacity: 0.75;
+        }
+        .header-badge {
+            font-size: 0.67rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--primary);
+            background: rgba(255,107,107,0.08);
+            padding: 4px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,107,107,0.2);
+        }
+        .header-tagline {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* ─── Hero ──────────────────────────────────────────────── */
+        .hero-section {
+            padding: 44px var(--padding-h) 36px;
+            background: white;
+        }
+        .hero-subline {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        .coral-rule {
+            width: 56px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        /* ─── Facts ─────────────────────────────────────────────── */
+        .facts-section {
+            background: #f7f8fa;
+            padding: 52px var(--padding-h);
+        }
+        .facts-eyebrow {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        .facts-heading {
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 32px;
+        }
+        .facts-stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .facts-risk-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        .fact-stat-card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px 22px 20px;
+            border: 1px solid rgba(0,0,0,0.06);
+        }
+        .fact-stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1.1;
+            margin-bottom: 10px;
+        }
+        .fact-stat-label {
+            font-size: 0.82rem;
+            color: #555;
+            line-height: 1.5;
+        }
+        .fact-risk-card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 18px 20px;
+            border: 1px solid rgba(0,0,0,0.06);
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+        .fact-risk-icon {
+            width: 38px;
+            height: 38px;
+            min-width: 38px;
+            background: rgba(255,107,107,0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .fact-risk-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 4px;
+        }
+        .fact-risk-desc {
+            font-size: 0.79rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* ─── 5-Stage Monitoring ────────────────────────────────── */
+        .stages-section {
+            padding: 36px var(--padding-h);
+            background: var(--bg-alt);
+            border-top: 1px solid var(--border);
+        }
+        .section-header { margin-bottom: 1.5rem; }
+        .section-header h2 { margin-bottom: 0.3rem; }
+        .section-subtext {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .stages-flow {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.85rem;
+        }
+        .stage-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 1.1rem 0.9rem;
+        }
+        .stage-number {
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 0.45rem;
+        }
+        .stage-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            line-height: 1.25;
+        }
+        .stage-logs {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.28rem;
+        }
+        .stage-logs li {
+            font-size: 0.71rem;
+            color: var(--text-secondary);
+            line-height: 1.45;
+            padding-left: 12px;
+            position: relative;
+        }
+        .stage-logs li::before {
+            content: '–';
+            position: absolute;
+            left: 0;
+            color: var(--text-muted);
+            font-size: 0.6rem;
+            top: 1px;
+        }
+        .stage-badge {
+            display: inline-block;
+            font-size: 0.57rem;
+            font-weight: 700;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: var(--secondary);
+            background: rgba(0,122,255,0.07);
+            border: 1px solid rgba(0,122,255,0.18);
+            border-radius: 4px;
+            padding: 1px 6px;
+            margin-top: 0.6rem;
+        }
+
+        /* ─── Breach Alerting ───────────────────────────────────── */
+        .breach-section {
+            background: var(--primary);
+            padding: 44px var(--padding-h);
+            overflow: hidden;
+            position: relative;
+        }
+        .breach-section::before {
+            content: '';
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 340px; height: 340px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 65%);
+            pointer-events: none;
+        }
+        .breach-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        .breach-eyebrow {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 0.7rem;
+            display: block;
+        }
+        .breach-text h2 {
+            font-size: clamp(18px, 2.5vw, 26px);
+            font-weight: 600;
+            color: white;
+            line-height: 1.15;
+            margin-bottom: 0.9rem;
+            letter-spacing: -0.02em;
+        }
+        .breach-text p {
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.82);
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+        }
+        .breach-facts { display: flex; flex-direction: column; gap: 0.45rem; }
+        .breach-fact {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.88);
+            font-weight: 500;
+        }
+        .breach-fact::before {
+            content: '✓';
+            font-size: 0.72rem;
+            opacity: 0.65;
+            flex-shrink: 0;
+        }
+        .breach-image-wrap {
+            position: relative;
+            padding-right: 80px;
+            padding-bottom: 30px;
+        }
+        .breach-image-wrap > .breach-graph {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 24px 50px rgba(0,0,0,0.25);
+        }
+        .breach-image-wrap > .breach-graph img { width: 100%; height: auto; display: block; }
+        .breach-device-wrap {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 115px;
+        }
+        .breach-device-wrap img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 10px 22px rgba(0,0,0,0.35));
+        }
+
+        /* ─── LMS Spotlight ─────────────────────────────────────── */
+        .lms-spotlight {
+            background: white;
+            padding: 44px var(--padding-h);
+            overflow: hidden;
+        }
+        .lms-inner {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            gap: 3rem;
+            align-items: center;
+        }
+        .lms-image-wrap {
+            border-radius: 16px;
+            overflow: hidden;
+            min-width: 0;
+            box-shadow: 0 20px 44px rgba(0,0,0,0.11),
+                        0 0 0 1px rgba(0,0,0,0.05);
+            order: -1;
+        }
+        .lms-image-wrap img { width: 100%; height: auto; display: block; }
+        .lms-text .eyebrow { margin-bottom: 0.7rem; }
+        .lms-text h2 {
+            font-size: clamp(17px, 2.2vw, 24px);
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.2;
+            margin-bottom: 0.85rem;
+            letter-spacing: -0.02em;
+        }
+        .lms-text p {
+            font-size: 0.87rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.1rem;
+        }
+        .lms-facts { display: flex; flex-direction: column; gap: 0.4rem; }
+        .lms-fact {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.81rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        .lms-fact::before {
+            content: '✓';
+            font-size: 0.7rem;
+            color: var(--primary);
+            opacity: 0.8;
+            flex-shrink: 0;
+        }
+
+        /* ─── Features Grid ─────────────────────────────────────── */
+        .features-grid-section {
+            padding: 44px var(--padding-h);
+            background: var(--bg-alt);
+            border-top: 1px solid var(--border);
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.85rem;
+            margin-top: 1.5rem;
+        }
+        .feature-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 1.6rem 1.1rem 1.4rem;
+            text-align: center;
+        }
+        .feature-icon {
+            width: 46px;
+            height: 46px;
+            margin: 0 auto 1rem;
+            color: var(--primary);
+        }
+        .feature-icon svg { width: 100%; height: 100%; }
+        .feature-title {
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+        .feature-desc {
+            font-size: 0.74rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+        }
+
+        /* ─── Delivery + Pricing ────────────────────────────────── */
+        .delivery-pricing-section {
+            background: white;
+            border-top: 1px solid var(--border);
+            padding: 44px var(--padding-h);
+        }
+        .delivery-pricing-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3.5rem;
+            align-items: start;
+        }
+        .timeline-col .eyebrow { margin-bottom: 0.7rem; }
+        .timeline-col h2 { margin-bottom: 0.35rem; }
+        .timeline-subtitle {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 1.75rem;
+        }
+        .timeline {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 8px;
+            bottom: 8px;
+            width: 1px;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+            opacity: 0.25;
+        }
+        .tl-item {
+            display: flex;
+            gap: 1.1rem;
+            padding-bottom: 1.35rem;
+            position: relative;
+        }
+        .tl-item:last-child { padding-bottom: 0; }
+        .tl-dot-wrap {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 30px;
+        }
+        .tl-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px rgba(255,107,107,0.3);
+            margin-top: 3px;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+        .tl-dot.blue { background: var(--secondary); box-shadow: 0 0 0 2px rgba(0,122,255,0.25); }
+        .tl-content { flex: 1; }
+        .tl-week {
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 0.2rem;
+        }
+        .tl-week.blue { color: var(--secondary); }
+        .tl-title {
+            font-size: 0.86rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+        .tl-desc {
+            font-size: 0.74rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .pricing-col .eyebrow { margin-bottom: 0.7rem; }
+        .pricing-col h2 { margin-bottom: 1.5rem; }
+        .pricing-card {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-card);
+            padding: 2rem 2rem 1.75rem;
+        }
+        .pricing-total-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.35rem;
+        }
+        .pricing-total-amount {
+            font-size: clamp(32px, 4vw, 44px);
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: 0.4rem;
+        }
+        .pricing-total-currency {
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+        .pricing-divider {
+            height: 1px;
+            background: var(--border);
+            margin-bottom: 1.25rem;
+        }
+        .pricing-covers-label {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.85rem;
+        }
+        .pricing-covers {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+            margin-bottom: 1.5rem;
+        }
+        .pricing-cover-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .pricing-cover-icon {
+            width: 26px;
+            height: 26px;
+            border-radius: 8px;
+            background: rgba(255,107,107,0.09);
+            border: 1px solid rgba(255,107,107,0.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .pricing-cover-icon svg { width: 13px; height: 13px; color: var(--primary); }
+        .pricing-cover-text h3 {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.1rem;
+            line-height: 1.3;
+        }
+        .pricing-cover-text p {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+        .pricing-note {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            font-style: italic;
+            border-top: 1px solid var(--border);
+            padding-top: 1rem;
+            line-height: 1.5;
+        }
+
+        /* ─── CTA ───────────────────────────────────────────────── */
+        .cta-section {
+            background: #000000;
+            padding: 52px var(--padding-h);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 700px; height: 400px;
+            background: radial-gradient(ellipse, rgba(255,107,107,0.12) 0%, transparent 55%);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+        .cta-logo {
+            height: 60px;
+            width: auto;
+            margin: 0 auto 1.5rem;
+            filter: brightness(0) invert(1);
+            opacity: 0.88;
+            position: relative;
+            z-index: 1;
+        }
+        .cta-headline {
+            font-size: clamp(22px, 4vw, 36px);
+            font-weight: 600;
+            color: white;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            margin-bottom: 0.6rem;
+            position: relative;
+            z-index: 1;
+        }
+        .cta-subline {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.48);
+            margin-bottom: 2rem;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        .btn-primary {
+            display: inline-block;
+            padding: 13px 34px;
+            background: var(--primary);
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: var(--radius-pill);
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        .btn-secondary {
+            display: inline-block;
+            padding: 13px 34px;
+            background: transparent;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(255,255,255,0.22);
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        .cta-contact {
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.38);
+            position: relative;
+            z-index: 1;
+        }
+        .cta-contact a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* ─── Footer ────────────────────────────────────────────── */
+        .proposal-footer {
+            background: #111111;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding: 14px var(--padding-h);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-logo {
+            height: 24px;
+            width: auto;
+            filter: brightness(0) invert(1);
+            opacity: 0.35;
+        }
+        .footer-copy {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.35);
+            font-style: italic;
+        }
+        .footer-site {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.35);
+        }
+
+        /* ─── Probe-First: belief + before/after ────────────────── */
+        .probe-section {
+            background: white;
+            padding: 44px var(--padding-h);
+            border-top: 1px solid var(--border);
+        }
+        .probe-lede {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.75;
+            max-width: 640px;
+        }
+        .belief-block {
+            background: var(--text);
+            border-radius: var(--radius-card);
+            padding: 28px 30px;
+            margin: 1.75rem 0;
+        }
+        .belief-quote {
+            font-size: clamp(24px, 3vw, 30px);
+            font-weight: 600;
+            color: #fff;
+            line-height: 1.45;
+            letter-spacing: -0.015em;
+        }
+        .belief-source {
+            margin-top: 10px;
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.4);
+            font-weight: 500;
+        }
+        .compare-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 1.75rem;
+        }
+        .compare-card {
+            border-radius: 18px;
+            padding: 22px 20px;
+            border: 1px solid var(--border);
+        }
+        .compare-card.before { background: var(--bg-alt); }
+        .compare-card.after {
+            background: rgba(255,107,107,0.05);
+            border-color: rgba(255,107,107,0.22);
+        }
+        .compare-label {
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+        .compare-label.before-lbl { color: var(--text-muted); }
+        .compare-label.after-lbl { color: var(--primary); }
+        .compare-steps {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .compare-steps li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+        .step-num {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+        .step-num.grey { background: #e0e0e0; color: #888; }
+        .step-num.coral { background: var(--primary); color: #fff; }
+        .compare-result {
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .result-time {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1;
+        }
+        .result-time.slow { color: var(--text-muted); }
+        .result-time.fast { color: var(--primary); }
+        .result-note {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* ─── Phone mockup frames ───────────────────────────────── */
+        .screens-strip { margin: 2.4rem 0 0.5rem; }
+        .screens-strip-label {
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 1.1rem;
+        }
+        .phone-row {
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .phone-unit { flex: 0 0 342px; }
+        .screens-strip.sm .phone-unit {
+            flex: 0 0 288px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .phone-frame {
+            width: 100%;
+            background: #1C1C1E;
+            border-radius: 28px;
+            padding: 8px 6px 12px;
+            box-shadow:
+                0 20px 44px -6px rgba(0,0,0,0.26),
+                inset 0 0 0 1px rgba(255,255,255,0.07);
+        }
+        .phone-notch {
+            width: 38px;
+            height: 7px;
+            background: #1C1C1E;
+            border-radius: 0 0 5px 5px;
+            margin: 0 auto 5px;
+        }
+        .phone-screen {
+            border-radius: 18px;
+            overflow: hidden;
+            background: #F2F2F7;
+        }
+        .phone-screen img { display: block; width: 100%; height: auto; }
+        .phone-cap {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            line-height: 1.35;
+        }
+        .phone-cap-sub {
+            display: block;
+            margin-top: 2px;
+            font-size: 0.62rem;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        /* ─── Management view ───────────────────────────────────── */
+        .mgmt-section {
+            background: white;
+            border-top: 1px solid var(--border);
+            padding: 44px var(--padding-h);
+        }
+        .mgmt-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 2fr;
+            gap: 36px;
+            align-items: start;
+            margin-top: 2rem;
+        }
+        .mgmt-sub-label {
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+        .dash-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .dash-list li {
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            padding-left: 16px;
+            position: relative;
+        }
+        .dash-list li::before {
+            content: "–";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .dash-list li strong { color: var(--text); }
+        .browser-frame {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+            border: 1px solid #E0E0E0;
+        }
+        .browser-bar {
+            background: #F0F0F0;
+            padding: 9px 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-bottom: 1px solid #DCDCDC;
+        }
+        .browser-dot { width: 10px; height: 10px; border-radius: 50%; }
+        .browser-dot:nth-child(1) { background: #FF5F57; }
+        .browser-dot:nth-child(2) { background: #FEBC2E; }
+        .browser-dot:nth-child(3) { background: #28C840; }
+        .browser-frame img { display: block; width: 100%; }
+
+        /* ─── Responsive ────────────────────────────────────────── */
+        @media (max-width: 1024px) {
+            .stages-flow { grid-template-columns: repeat(2, 1fr); }
+            .features-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 900px) {
+            .breach-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+            .breach-device-wrap { display: none; }
+            .lms-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+            .lms-image-wrap { order: 0; }
+            .delivery-pricing-inner { grid-template-columns: 1fr; gap: 2rem; }
+            .compare-grid { grid-template-columns: 1fr; }
+            .mgmt-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+        }
+        @media (max-width: 768px) {
+            :root { --padding-h: 20px; }
+            .stages-flow { grid-template-columns: 1fr 1fr; }
+            .features-grid { grid-template-columns: 1fr 1fr; }
+            .facts-stats-row { grid-template-columns: 1fr; }
+            .facts-risk-row { grid-template-columns: 1fr; }
+            .cta-subline { margin-left: 0; margin-right: 0; }
+        }
+
+        /* ─── 150% Scale ─────────────────────────────────── */
+        html { font-size: 24px; }
+        :root {
+            --padding-h:   72px;
+            --radius-card: 36px;
+        }
+        h1 { font-size: clamp(42px, 6vw, 66px); }
+        h2 { font-size: clamp(30px, 4.2vw, 45px); }
+        .coral-rule { width: 84px; }
+        .proposal-header { height: 78px; }
+        .header-logo { height: 46px; }
+        .header-badge { padding: 6px 21px; }
+        .hero-section { padding: 66px var(--padding-h) 54px; }
+        .facts-section { padding: 78px var(--padding-h); }
+        .fact-stat-card { border-radius: 21px; padding: 36px 33px 30px; }
+        .fact-risk-card { border-radius: 21px; padding: 27px 30px; gap: 21px; }
+        .fact-risk-icon { width: 57px; height: 57px; min-width: 57px; border-radius: 15px; }
+        .stages-section { padding: 54px var(--padding-h); }
+        .stage-card { border-radius: 27px; }
+        .stage-badge { border-radius: 6px; padding: 2px 9px; }
+        .breach-section { padding: 66px var(--padding-h); }
+        .breach-section::before { top: -90px; right: -90px; width: 510px; height: 510px; }
+        .breach-text h2 { font-size: clamp(27px, 3.75vw, 39px); }
+        .breach-image-wrap { padding-right: 120px; padding-bottom: 45px; }
+        .breach-graph { border-radius: 24px; }
+        .breach-device-wrap { width: 172px; }
+        .lms-spotlight { padding: 66px var(--padding-h); }
+        .lms-text h2 { font-size: clamp(26px, 3.3vw, 36px); }
+        .lms-image-wrap { border-radius: 24px; }
+        .features-grid-section { padding: 66px var(--padding-h); }
+        .feature-card { border-radius: 27px; }
+        .feature-icon { width: 69px; height: 69px; }
+        .delivery-pricing-section { padding: 66px var(--padding-h); }
+        .timeline::before { left: 22px; top: 12px; bottom: 12px; }
+        .tl-dot-wrap { width: 45px; }
+        .tl-dot { width: 18px; height: 18px; }
+        .pricing-total-amount { font-size: clamp(48px, 6vw, 66px); }
+        .pricing-cover-icon { width: 39px; height: 39px; border-radius: 12px; }
+        .pricing-cover-icon svg { width: 19px; height: 19px; }
+        .cta-section { padding: 78px var(--padding-h); }
+        .cta-section::before { width: 1050px; height: 600px; }
+        .cta-headline { font-size: clamp(33px, 6vw, 54px); }
+        .cta-logo { height: 90px; }
+        .cta-buttons { gap: 18px; margin-bottom: 2.25rem; }
+        .btn-primary, .btn-secondary { padding: 19px 51px; font-size: 1.35rem; }
+        .proposal-footer { padding: 21px var(--padding-h); }
+        .footer-logo { height: 36px; }
+        .probe-section { padding: 66px var(--padding-h); }
+        .belief-block { border-radius: 27px; }
+        .compare-card { border-radius: 27px; }
+        .mgmt-section { padding: 66px var(--padding-h); }
+        @media (max-width: 768px) { :root { --padding-h: 30px; } }
+    </style>
+    <style media="print">
+        @page {
+            size: A4;
+            margin: 12mm 15mm;
+        }
+        * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+        .proposal-header {
+            position: static;
+        }
+        .screens-strip,
+        .phone-unit,
+        .belief-block,
+        .compare-card,
+        .browser-frame {
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── Header ────────────────────────────── -->
+<header class="proposal-header">
+    <img src="Logo_Horizontal_Full_White.png" alt="SafeTrack" class="header-logo">
+    <span class="header-badge">Product Brochure</span>
+    <span class="header-tagline">neuralnexus.lk</span>
+</header>
+
+<main id="main-content">
+
+    <!-- ── Page 1: Monitoring + Alerting ─────────── -->
+
+    <section id="hero" class="hero-section" aria-label="Introduction">
+        <span class="eyebrow">Food Safety Compliance &nbsp;&middot;&nbsp; HACCP Standards &nbsp;&middot;&nbsp; Built for Commercial Kitchens</span>
+        <h1>Your Kitchen Shouldn&rsquo;t Rely on<br><span class="text-gradient">Who&rsquo;s Standing Watch</span> Tonight</h1>
+        <p class="hero-subline">In a commercial kitchen, the monitoring already happens &mdash; chefs are probing, checking, doing the work. The failure is in the gap between that act and the record. SafeTrack closes that gap: every temperature reading captured at the moment it&rsquo;s taken, every cooling batch tracked across the shift, every corrective action logged at the moment it&rsquo;s needed &mdash; without anyone stopping to fill in a form.</p>
+        <div class="coral-rule" aria-hidden="true"></div>
+    </section>
+
+    <section id="why-manual" class="facts-section" aria-labelledby="facts-heading">
+        <span class="facts-eyebrow">Why Manual Is No Longer Enough</span>
+        <h2 id="facts-heading" class="facts-heading">The cost of doing it the old way</h2>
+        <div class="facts-stats-row">
+            <div class="fact-stat-card">
+                <div class="fact-stat-value">30&ndash;40%</div>
+                <div class="fact-stat-label">Of quality team time lost to manual record compilation and audit prep</div>
+            </div>
+            <div class="fact-stat-card">
+                <div class="fact-stat-value">8&ndash;72hr</div>
+                <div class="fact-stat-label">Typical breach detection delay in manual monitoring environments</div>
+            </div>
+            <div class="fact-stat-card">
+                <div class="fact-stat-value">14&ndash;28d</div>
+                <div class="fact-stat-label">Required to achieve audit readiness vs. on-demand validation</div>
+            </div>
+        </div>
+        <div class="facts-risk-row">
+            <div class="fact-risk-card">
+                <div class="fact-risk-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF6B6B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                        <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="fact-risk-title">$50K&ndash;$250K+ Per Incident</div>
+                    <div class="fact-risk-desc">Combined closure costs, legal settlements, remediation, and lost revenue from a single food safety event</div>
+                </div>
+            </div>
+            <div class="fact-risk-card">
+                <div class="fact-risk-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF6B6B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="8" r="6"/>
+                        <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="fact-risk-title">Certification Loss</div>
+                    <div class="fact-risk-desc">Market access restricted and customer delistings when audits fail</div>
+                </div>
+            </div>
+            <div class="fact-risk-card">
+                <div class="fact-risk-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF6B6B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/>
+                        <polyline points="17 18 23 18 23 12"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="fact-risk-title">Brand Damage</div>
+                    <div class="fact-risk-desc">Customer trust eroded and competitive disadvantage from public incidents</div>
+                </div>
+            </div>
+            <div class="fact-risk-card">
+                <div class="fact-risk-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF6B6B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                        <polyline points="17 6 23 6 23 12"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="fact-risk-title">Scale Constraint</div>
+                    <div class="fact-risk-desc">Unable to grow without proportional compliance overhead and headcount</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="probe-first" class="probe-section" aria-labelledby="probe-heading">
+        <div class="section-header">
+            <span class="eyebrow">How SafeTrack Works</span>
+            <h2 id="probe-heading">Not a digital clipboard.<br><span class="text-gradient">A probe-connected monitoring system.</span></h2>
+            <p class="probe-lede">Every existing HACCP digital tool replaced a paper form with a mobile form. The interaction model did not change &mdash; staff still stop what they are doing to fill something in. SafeTrack is built on a different belief entirely.</p>
+        </div>
+
+        <div class="belief-block">
+            <div class="belief-quote">&ldquo;The monitoring already happens in every kitchen.<br>The record shouldn&rsquo;t require a separate act to create.&rdquo;</div>
+            <div class="belief-source">&mdash; SafeTrack design principle</div>
+        </div>
+
+        <div class="compare-grid">
+            <div class="compare-card before">
+                <div class="compare-label before-lbl">Form-First &mdash; Today</div>
+                <ul class="compare-steps">
+                    <li><span class="step-num grey">1</span>Probe the food</li>
+                    <li><span class="step-num grey">2</span>Put down the thermometer</li>
+                    <li><span class="step-num grey">3</span>Unlock phone, open app</li>
+                    <li><span class="step-num grey">4</span>Navigate to the right form</li>
+                    <li><span class="step-num grey">5</span>Type the reading and context</li>
+                    <li><span class="step-num grey">6</span>Submit</li>
+                </ul>
+                <div class="compare-result">
+                    <div class="result-time slow">~90s</div>
+                    <div class="result-note">During service, this step gets skipped.<br>That is where records break down.</div>
+                </div>
+            </div>
+            <div class="compare-card after">
+                <div class="compare-label after-lbl">Probe-First &mdash; SafeTrack</div>
+                <ul class="compare-steps">
+                    <li><span class="step-num coral">1</span>Probe the food &mdash; app detects BLE, surfaces context</li>
+                    <li><span class="step-num coral">2</span>One tap to confirm &mdash; record created</li>
+                </ul>
+                <div class="compare-result" style="border-top-color: rgba(255,107,107,0.2);">
+                    <div class="result-time fast">~5s</div>
+                    <div class="result-note">Record created at the moment of the check.<br>No separate step. No skipping.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="screens-strip">
+            <div class="screens-strip-label">The app in action</div>
+            <div class="phone-row">
+                <div class="phone-unit">
+                    <div class="phone-frame">
+                        <div class="phone-notch"></div>
+                        <div class="phone-screen">
+                            <img src="safetrack-mobile-home.png" alt="SafeTrack home screen showing pending checks and active cooling batches">
+                        </div>
+                    </div>
+                    <div class="phone-cap">Shift overview
+                        <span class="phone-cap-sub">Pending checks, active cooling, probe ready banner</span>
+                    </div>
+                </div>
+                <div class="phone-unit">
+                    <div class="phone-frame">
+                        <div class="phone-notch"></div>
+                        <div class="phone-screen">
+                            <img src="safetrack-log-record.png" alt="Temperature recording screen with the probe reading auto-populated">
+                        </div>
+                    </div>
+                    <div class="phone-cap">Probe-First capture
+                        <span class="phone-cap-sub">BLE reading auto-populated &mdash; one tap to confirm and log</span>
+                    </div>
+                </div>
+                <div class="phone-unit">
+                    <div class="phone-frame">
+                        <div class="phone-notch"></div>
+                        <div class="phone-screen">
+                            <img src="safetrack-breach-alert.png" alt="Breach alert screen with a guided corrective action decision tree">
+                        </div>
+                    </div>
+                    <div class="phone-cap">Guided corrective action
+                        <span class="phone-cap-sub">Breach detected &mdash; decision tree opens, record builds from selection</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="monitoring-stages" class="stages-section" aria-labelledby="stages-heading">
+        <div class="section-header">
+            <span class="eyebrow">Complete Kitchen Coverage</span>
+            <h2 id="stages-heading">The Whole Kitchen. <span class="text-gradient">Every Check Logged.</span></h2>
+            <p class="section-subtext">SafeTrack monitors every area of a commercial kitchen &mdash; from the delivery bay to the closing clean-down. Every CCP reading, every PRP checklist, timestamped, signed off, and audit-ready.</p>
+        </div>
+        <div class="stages-flow">
+            <div class="stage-card">
+                <div class="stage-number">Goods In</div>
+                <div class="stage-name">Receiving &amp; Intake</div>
+                <ul class="stage-logs">
+                    <li>Delivery vehicle temp logged on arrival</li>
+                    <li>Probe reading per batch &mdash; accept or reject recorded</li>
+                    <li>Dry store: ambient temp, pest, FIFO and date labelling</li>
+                    <li>Supplier documentation and approved supplier check</li>
+                </ul>
+            </div>
+            <div class="stage-card">
+                <div class="stage-number">Storage</div>
+                <div class="stage-name">Cold Chain Storage</div>
+                <ul class="stage-logs">
+                    <li>Chillers and freezers monitored continuously, 24/7</li>
+                    <li>Instant alert the moment ambient reading climbs</li>
+                    <li>Full overnight history, no manual check gaps</li>
+                    <li>Walk-in, reach-in, and under-counter units covered</li>
+                </ul>
+                <div class="stage-badge">IoT Sensor</div>
+            </div>
+            <div class="stage-card">
+                <div class="stage-number">Pre-Heat</div>
+                <div class="stage-name">Preparation</div>
+                <ul class="stage-logs">
+                    <li>Thaw method and final probe before prep begins</li>
+                    <li>Produce: sanitiser name, concentration, contact time</li>
+                    <li>Protein prep cold chain time tracked per batch</li>
+                    <li>Allergen segregation and equipment colour coding</li>
+                </ul>
+            </div>
+            <div class="stage-card">
+                <div class="stage-number">Kill Step</div>
+                <div class="stage-name">Cooking</div>
+                <ul class="stage-logs">
+                    <li>Core probe per batch for every high-risk item</li>
+                    <li>Critical limits by protein: poultry 75&deg;C, mince 71&deg;C, beef 63&deg;C</li>
+                    <li>Oil quality checks logged for fryer operations</li>
+                    <li>Documented exceptions: medium-rare, pink duck, soft-boiled</li>
+                </ul>
+            </div>
+            <div class="stage-card">
+                <div class="stage-number">Batch Thread</div>
+                <div class="stage-name">Cooling</div>
+                <ul class="stage-logs">
+                    <li>Thread opened at T=0 and stays live until the batch is safe</li>
+                    <li>Mid-cool and final probe prompted automatically</li>
+                    <li>Thread transfers to incoming staff at shift handover</li>
+                    <li>Breach triggers guided discard or blast chill workflow</li>
+                </ul>
+                <div class="stage-badge">Thread Tracked</div>
+            </div>
+            <div class="stage-card">
+                <div class="stage-number">Service</div>
+                <div class="stage-name">Holding &amp; Service</div>
+                <ul class="stage-logs">
+                    <li>Hot and cold holding confirmed before service opens</li>
+                    <li>Re-checks every 2&ndash;4 hours during extended service runs</li>
+                    <li>Reheat to 75&deg;C or discard if temperature drops</li>
+                    <li>Allergen flags verified at the pass before dishes leave</li>
+                </ul>
+            </div>
+            <div class="stage-card">
+                <div class="stage-number">Sanitation</div>
+                <div class="stage-name">Cleaning &amp; Sanitation</div>
+                <ul class="stage-logs">
+                    <li>Dishwasher wash and rinse temps logged per cycle</li>
+                    <li>Sanitiser concentration and chemical dilution records</li>
+                    <li>Equipment cleaning schedules tracked and signed off</li>
+                    <li>Chemical storage: separation and MSDS accessible</li>
+                </ul>
+            </div>
+            <div class="stage-card">
+                <div class="stage-number">Staff</div>
+                <div class="stage-name">People &amp; Hygiene</div>
+                <ul class="stage-logs">
+                    <li>PPE check and health declaration at each shift start</li>
+                    <li>Handwashing compliance logged per shift</li>
+                    <li>Training assessments linked to each staff profile</li>
+                    <li>Staff assessed and certified before first monitoring task</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="screens-strip sm">
+            <div class="screens-strip-label">Live in the kitchen</div>
+            <div class="phone-row">
+                <div class="phone-unit">
+                    <div class="phone-frame">
+                        <div class="phone-notch"></div>
+                        <div class="phone-screen">
+                            <img src="safetrack-ccp-repo.png" alt="Kitchen zone overview showing CCP completion by stage">
+                        </div>
+                    </div>
+                    <div class="phone-cap">Kitchen zones
+                        <span class="phone-cap-sub">Every stage, CCP completion at a glance</span>
+                    </div>
+                </div>
+                <div class="phone-unit">
+                    <div class="phone-frame">
+                        <div class="phone-notch"></div>
+                        <div class="phone-screen">
+                            <img src="safetrack-iot-log.png" alt="IoT cold storage live temperature feed">
+                        </div>
+                    </div>
+                    <div class="phone-cap">IoT live feed
+                        <span class="phone-cap-sub">Cold storage monitored continuously, 24/7</span>
+                    </div>
+                </div>
+                <div class="phone-unit">
+                    <div class="phone-frame">
+                        <div class="phone-notch"></div>
+                        <div class="phone-screen">
+                            <img src="safetrack-temp-threading.png" alt="Cooling thread tracker following a batch from T=0 to safe temperature">
+                        </div>
+                    </div>
+                    <div class="phone-cap">Cooling thread
+                        <span class="phone-cap-sub">Batch tracked from T=0, across shift changes</span>
+                    </div>
+                </div>
+                <div class="phone-unit">
+                    <div class="phone-frame">
+                        <div class="phone-notch"></div>
+                        <div class="phone-screen">
+                            <img src="safetrack-checkbox-list.png" alt="PRP checklist for cleaning, hygiene, and storage checks">
+                        </div>
+                    </div>
+                    <div class="phone-cap">PRP checklist
+                        <span class="phone-cap-sub">Cleaning, hygiene, and storage checks per shift</span>
+                    </div>
+                </div>
+                <div class="phone-unit">
+                    <div class="phone-frame">
+                        <div class="phone-notch"></div>
+                        <div class="phone-screen">
+                            <img src="safetrack-sanitisation-log.png" alt="Sanitisation log recording chemical concentration and contact time">
+                        </div>
+                    </div>
+                    <div class="phone-cap">Sanitisation log
+                        <span class="phone-cap-sub">Chemical, concentration, and contact time recorded</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="breach-alerting" class="breach-section" aria-labelledby="breach-heading">
+        <div class="breach-inner">
+            <div class="breach-text">
+                <span class="breach-eyebrow">Automated Alerting &amp; Corrective Actions</span>
+                <h2 id="breach-heading">The Moment Something Goes Wrong, You Know About It</h2>
+                <p>The moment a reading drifts outside its critical limit &mdash; the cool room climbing overnight, a probe that doesn&rsquo;t hit the mark at service &mdash; the right people are alerted instantly and a corrective action is already open and waiting to log.</p>
+                <p style="margin-top: 0.75rem; font-size: 0.92rem; opacity: 0.85;">SafeTrack connects with your existing temperature monitoring devices via Bluetooth, Wi-Fi, or API &mdash; no rip-and-replace required.</p>
+                <div class="breach-facts">
+                    <span class="breach-fact">Threshold crossed &rarr; instant push to Head Chef &amp; Sous Chef</span>
+                    <span class="breach-fact">Corrective action form opens automatically on breach</span>
+                    <span class="breach-fact">What happened, who fixed it, when &mdash; logged and closed</span>
+                    <span class="breach-fact">Full evidence trail &mdash; timestamped, signed off, audit-ready</span>
+                </div>
+            </div>
+            <div class="breach-image-wrap">
+                <div class="breach-graph">
+                    <img src="iot-temperature-graph.png" alt="Temperature trend graph showing a cool-room breach detection and automated alert timeline">
+                </div>
+                <div class="breach-device-wrap">
+                    <img src="sensor.png" alt="SafeTrack mobile app showing a push notification for a temperature breach">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Page 2: Management View + Training + Capabilities + Pricing + CTA ── -->
+
+    <section id="management-view" class="mgmt-section" aria-labelledby="mgmt-heading">
+        <div class="section-header">
+            <span class="eyebrow">Management View</span>
+            <h2 id="mgmt-heading">Real-time visibility across every site.<br><span class="text-gradient">Audit-ready in seconds.</span></h2>
+            <p class="section-subtext">While kitchen staff capture on mobile, management has a live web dashboard &mdash; compliance status, breach history, and the full audit trail in one place.</p>
+        </div>
+        <div class="mgmt-grid">
+            <div>
+                <div class="mgmt-sub-label">What management sees</div>
+                <ul class="dash-list">
+                    <li><strong>Live compliance rate</strong> &mdash; across all outlets, updated in real time</li>
+                    <li><strong>Breach severity breakdown</strong> &mdash; critical, warning, and safe zone by day</li>
+                    <li><strong>Overdue tasks</strong> &mdash; flagged before they become an audit risk</li>
+                    <li><strong>Every CCP record</strong> &mdash; searchable by date, outlet, staff member, or CCP type</li>
+                    <li><strong>Staff performance</strong> &mdash; who logged what, when, and how fast</li>
+                    <li><strong>90-day audit trail</strong> &mdash; ready in seconds when an inspector walks in</li>
+                </ul>
+            </div>
+            <div class="browser-frame">
+                <div class="browser-bar">
+                    <div class="browser-dot"></div>
+                    <div class="browser-dot"></div>
+                    <div class="browser-dot"></div>
+                </div>
+                <img src="safetrack-dashboard.png" alt="SafeTrack management dashboard showing compliance rate, breach history, and open corrective actions">
+            </div>
+        </div>
+    </section>
+
+    <section id="training" class="lms-spotlight" aria-labelledby="lms-heading">
+        <div class="lms-inner">
+            <div class="lms-image-wrap">
+                <img src="lms-form-preview.png" alt="SafeTrack Learning Management System interface showing a food-safety MCQ assessment module">
+            </div>
+            <div class="lms-text">
+                <span class="eyebrow">Built-In Training Module</span>
+                <h2 id="lms-heading">Every New Face Gets Trained, Assessed, and Certified Before They Touch a Chopping Board</h2>
+                <p>SafeTrack&rsquo;s built-in Assessment Module lets you build and assign food safety MCQ assessments &mdash; auto-scored, directly linked to each staff member&rsquo;s profile. Personal hygiene, temperature control, cross-contamination, allergen handling, chemical use &mdash; everything your kitchen requires, built into the same system the whole team uses on their phone, completable in under 25 minutes.</p>
+                <div class="lms-facts">
+                    <span class="lms-fact">Aligned to FSANZ Standards 3.2.1 &amp; 3.2.2 and your local food safety regulatory framework</span>
+                    <span class="lms-fact">Auto-scored MCQs &mdash; results recorded without manual grading</span>
+                    <span class="lms-fact">Certificate records linked to each staff member&rsquo;s profile</span>
+                    <span class="lms-fact">Full training history on demand for inspections and audits</span>
+                    <span class="lms-fact">Completable on any device &mdash; floor, break room, or day one</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="platform-features" class="features-grid-section" aria-labelledby="features-heading">
+        <span class="eyebrow">Platform Capabilities</span>
+        <h2 id="features-heading">Everything Your Kitchen Needs, <span class="text-gradient">In One System</span></h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>
+                    </svg>
+                </div>
+                <div class="feature-title">Digital Temp Monitoring</div>
+                <p class="feature-desc">Every stage from receiving to service logged, timestamped, and searchable. No more paper logs.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+                        <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+                        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+                        <circle cx="12" cy="20" r="0.5" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div class="feature-title">IoT Temperature Sensors</div>
+                <p class="feature-desc">Wireless probes monitor cool rooms and hot holding 24/7 &mdash; no manual checks, no gaps overnight.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                    </svg>
+                </div>
+                <div class="feature-title">Instant Breach Alerts</div>
+                <p class="feature-desc">Push notification to the right people the moment any CCP reading goes outside its critical limit.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+                        <rect x="9" y="3" width="6" height="4" rx="2"/>
+                        <path d="m9 12 2 2 4-4"/>
+                    </svg>
+                </div>
+                <div class="feature-title">Corrective Action Workflow</div>
+                <p class="feature-desc">Breach triggers an automatic action form &mdash; logged, signed off, and stored in the audit trail.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                    </svg>
+                </div>
+                <div class="feature-title">Built-In Assessment Module</div>
+                <p class="feature-desc">MCQ assessments auto-scored, certificates linked to each staff member &mdash; completable on any device.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                    </svg>
+                </div>
+                <div class="feature-title">Paperless Records</div>
+                <p class="feature-desc">Replace paper logs for receiving, cooking, holding, and cleaning &mdash; audit-ready on demand.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <rect x="3" y="3" width="7" height="7" rx="1"/>
+                        <rect x="14" y="3" width="7" height="7" rx="1"/>
+                        <rect x="14" y="14" width="7" height="7" rx="1"/>
+                        <rect x="3" y="14" width="7" height="7" rx="1"/>
+                    </svg>
+                </div>
+                <div class="feature-title">Multi-Site Dashboard</div>
+                <p class="feature-desc">Full compliance status, open actions, and training gaps &mdash; consolidated across every outlet and site.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <circle cx="11" cy="11" r="8"/>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                </div>
+                <div class="feature-title">Full Traceability</div>
+                <p class="feature-desc">Every action tied to who, when, and what batch. Trace any incident back through the chain in seconds.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                </div>
+                <div class="feature-title">Cooling Thread Manager</div>
+                <p class="feature-desc">Cooling batches tracked as persistent threads &mdash; T=0 to safe temp, mid-cool prompts automated, ownership transfers at shift handover.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <rect x="3" y="4" width="18" height="18" rx="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                        <line x1="8" y1="15" x2="16" y2="15"/>
+                    </svg>
+                </div>
+                <div class="feature-title">Scheduled Monitoring Rounds</div>
+                <p class="feature-desc">Push reminders at shift time, routed to the right person by role and section &mdash; escalation triggered automatically on missed checks.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="delivery-pricing" class="delivery-pricing-section" aria-labelledby="timeline-heading">
+        <div class="delivery-pricing-inner">
+
+            <div class="timeline-col">
+                <span class="eyebrow">Delivery Timeline</span>
+                <h2 id="timeline-heading">Live in 6 Weeks</h2>
+                <p class="timeline-subtitle">A structured rollout built around your kitchen calendar &mdash; minimal disruption, no big-bang go-live.</p>
+                <div class="timeline">
+                    <div class="tl-item">
+                        <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+                        <div class="tl-content">
+                            <div class="tl-week">Days 1 &ndash; 3</div>
+                            <div class="tl-title">Discovery &amp; Requirements</div>
+                            <p class="tl-desc">CCP mapping walkthrough with your head chef, site confirmation, and user roles defined.</p>
+                        </div>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+                        <div class="tl-content">
+                            <div class="tl-week">Week 1 &ndash; 2</div>
+                            <div class="tl-title">System Implementation</div>
+                            <p class="tl-desc">Platform provisioned, kitchen configured, user accounts created, IoT sensors registered and online.</p>
+                        </div>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+                        <div class="tl-content">
+                            <div class="tl-week">Week 2 &ndash; 4</div>
+                            <div class="tl-title">Configuration &amp; Customisation</div>
+                            <p class="tl-desc">HACCP forms built to your plan, alert thresholds set per CCP, corrective action workflows configured, supporting documents uploaded.</p>
+                        </div>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-dot-wrap"><div class="tl-dot blue"></div></div>
+                        <div class="tl-content">
+                            <div class="tl-week blue">Week 5</div>
+                            <div class="tl-title">Testing &amp; UAT</div>
+                            <p class="tl-desc">End-to-end testing across all 5 monitoring stages, breach alert verification, corrective action flow sign-off with your team.</p>
+                        </div>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-dot-wrap"><div class="tl-dot blue"></div></div>
+                        <div class="tl-content">
+                            <div class="tl-week blue">Week 6</div>
+                            <div class="tl-title">Training &amp; Go-Live</div>
+                            <p class="tl-desc">On-site kitchen staff training, assessments assigned and staff certified, management dashboard walkthrough &mdash; system live and running.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pricing-col">
+                <span class="eyebrow">Investment</span>
+                <h2>Simple, All-In Pricing</h2>
+                <div class="pricing-card">
+                    <div class="pricing-total-label">Pricing</div>
+                    <div class="pricing-total-amount">Contact Us</div>
+                    <div class="pricing-total-currency">Tailored to your kitchen and requirements</div>
+                    <div style="display:flex; gap: 0.6rem; margin-top: 0.75rem; margin-bottom: 0.75rem; flex-wrap: wrap;">
+                        <span style="font-size:0.75rem; font-weight:600; background:rgba(255,107,107,0.1); color:var(--primary); padding: 4px 10px; border-radius: 20px;">3-Year Contract</span>
+                        <span style="font-size:0.75rem; font-weight:600; background:rgba(255,107,107,0.1); color:var(--primary); padding: 4px 10px; border-radius: 20px;">Billed Annually in Advance</span>
+                    </div>
+                    <div class="pricing-divider"></div>
+                    <div class="pricing-covers-label">What&rsquo;s Covered</div>
+                    <div class="pricing-covers">
+                        <div class="pricing-cover-item">
+                            <div class="pricing-cover-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                                    <rect x="2" y="3" width="20" height="14" rx="2"/>
+                                    <line x1="8" y1="21" x2="16" y2="21"/>
+                                    <line x1="12" y1="17" x2="12" y2="21"/>
+                                </svg>
+                            </div>
+                            <div class="pricing-cover-text">
+                                <h3>Platform Licence</h3>
+                                <p>Per kitchen licence &mdash; full platform access for the contract term</p>
+                            </div>
+                        </div>
+                        <div class="pricing-cover-item">
+                            <div class="pricing-cover-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                                    <path d="M12 20h9"/>
+                                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                                </svg>
+                            </div>
+                            <div class="pricing-cover-text">
+                                <h3>Implementation</h3>
+                                <p>Full setup, CCP configuration, IoT sensor installation, and system go-live</p>
+                            </div>
+                        </div>
+                        <div class="pricing-cover-item">
+                            <div class="pricing-cover-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                                    <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                                </svg>
+                            </div>
+                            <div class="pricing-cover-text">
+                                <h3>Training</h3>
+                                <p>On-site staff training, assessment setup, and management dashboard walkthrough</p>
+                            </div>
+                        </div>
+                        <div class="pricing-cover-item">
+                            <div class="pricing-cover-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                                </svg>
+                            </div>
+                            <div class="pricing-cover-text">
+                                <h3>Support</h3>
+                                <p>Software support included for the full 3-year contract term</p>
+                            </div>
+                        </div>
+                        <div class="pricing-cover-item">
+                            <div class="pricing-cover-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                                    <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>
+                                </svg>
+                            </div>
+                            <div class="pricing-cover-text">
+                                <h3>Thermometer Probing Device</h3>
+                                <p>One standard unit included for on-the-spot temperature readings</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="pricing-note">Sensor hardware quoted separately based on site requirements. A detailed scope will be provided post-discovery.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="cta" class="cta-section" aria-label="Schedule a Demo">
+        <img src="Logo_Horizontal_Full_White.png" alt="SafeTrack" class="cta-logo">
+        <h2 class="cta-headline">See It Running in Your Kitchen</h2>
+        <p class="cta-subline">A 30-minute demo built around your kitchen and compliance requirements.</p>
+        <div class="cta-buttons">
+            <a href="mailto:info@neuralnexus.lk?subject=SafeTrack%20Demo%20Request" class="btn-primary">Schedule a Demo</a>
+            <a href="https://wa.me/94777880390" target="_blank" rel="noopener noreferrer" class="btn-secondary">WhatsApp Us</a>
+        </div>
+        <p class="cta-contact">
+            info@neuralnexus.lk &nbsp;&middot;&nbsp;
+            WhatsApp <a href="https://wa.me/94777880390">+94 77 788 0390</a>
+        </p>
+    </section>
+
+</main>
+
+<footer class="proposal-footer">
+    <img src="Logo_Horizontal_Full_White.png" alt="SafeTrack" class="footer-logo">
+    <span class="footer-copy">SafeTrack &mdash; Digital Food Safety Compliance</span>
+    <span class="footer-site">neuralnexus.lk</span>
+</footer>
+
+
+</body>
+</html>
