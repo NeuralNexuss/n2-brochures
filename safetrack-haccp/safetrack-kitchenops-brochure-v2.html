@@ -997,6 +997,7 @@
         @media (max-width: 900px) {
             .breach-inner { grid-template-columns: 1fr; gap: 1.5rem; }
             .breach-device-wrap { display: none; }
+            .breach-image-wrap { padding-right: 0; padding-bottom: 0; }
             .lms-inner { grid-template-columns: 1fr; gap: 1.5rem; }
             .lms-image-wrap { order: 0; }
             .delivery-pricing-inner { grid-template-columns: 1fr; gap: 2rem; }
@@ -1012,7 +1013,68 @@
             .cta-subline { margin-left: 0; margin-right: 0; }
         }
 
-        /* ─── 150% Scale ─────────────────────────────────── */
+        /* ─── Mobile-first refinements (≤768px) ─────────────── */
+        @media (max-width: 768px) {
+            /* Tighter vertical rhythm so sections don't feel cavernous */
+            .hero-section,
+            .facts-section,
+            .probe-section,
+            .breach-section,
+            .lms-spotlight,
+            .mgmt-section,
+            .features-grid-section,
+            .delivery-pricing-section,
+            .cta-section { padding-top: 32px; padding-bottom: 32px; }
+
+            /* Centered, symmetric content column */
+            .hero-section { text-align: center; }
+            .hero-subline { margin-left: auto; margin-right: auto; }
+            .coral-rule { margin-left: auto; margin-right: auto; }
+            .section-header { display: flex; flex-direction: column; align-items: center; text-align: center; }
+            .section-subtext,
+            .probe-lede { margin-left: auto; margin-right: auto; }
+            .facts-eyebrow,
+            .facts-heading { text-align: center; }
+            .features-grid-section > .eyebrow,
+            .features-grid-section > h2,
+            .lms-text .eyebrow,
+            .lms-text h2,
+            .pricing-col .eyebrow,
+            .pricing-col h2,
+            .timeline-col .eyebrow,
+            .timeline-col h2,
+            .timeline-subtitle { text-align: center; }
+            .compare-grid,
+            .facts-stats-row,
+            .facts-risk-row { max-width: 460px; margin-left: auto; margin-right: auto; }
+            .features-grid { gap: 12px; }
+
+            /* ── Phone strips → horizontal swipe carousel ── */
+            .phone-row {
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                gap: 14px;
+                scrollbar-width: none;
+                /* bleed to screen edges, keep first/last card aligned to content */
+                margin-left: calc(var(--padding-h) * -1);
+                margin-right: calc(var(--padding-h) * -1);
+                padding: 4px var(--padding-h) 12px;
+            }
+            .phone-row::-webkit-scrollbar { display: none; }
+            .phone-unit,
+            .screens-strip.sm .phone-unit {
+                flex: 0 0 78%;
+                max-width: 300px;
+                scroll-snap-align: center;
+            }
+            .screens-strip-label { text-align: center; }
+        }
+
+        /* ─── 150% Scale — desktop presentation only ────────── */
+        @media (min-width: 1024px) {
         html { font-size: 24px; }
         :root {
             --padding-h:   72px;
@@ -1063,7 +1125,7 @@
         .belief-block { border-radius: 27px; }
         .compare-card { border-radius: 27px; }
         .mgmt-section { padding: 66px var(--padding-h); }
-        @media (max-width: 768px) { :root { --padding-h: 30px; } }
+        } /* end 150% desktop-only scale */
     </style>
     <style media="print">
         @page {
